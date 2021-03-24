@@ -1,5 +1,12 @@
 package app;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import classes.Locacao;
+import classes.Pessoa;
+import classes.Veiculo;
+
 public class service {
 
 public static void main(String[] args) {

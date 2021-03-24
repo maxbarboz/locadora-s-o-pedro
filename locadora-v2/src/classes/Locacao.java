@@ -1,5 +1,7 @@
 package classes;
 
+import java.util.Date;
+
 public class Locacao {
 
 	private Pessoa pessoa;

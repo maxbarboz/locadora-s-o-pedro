@@ -1,15 +1,8 @@
-package main;
+package app;
 
-import java.util.ArrayList;
-import java.util.List;
+public class service {
 
-import classes.Locacao;
-import classes.Pessoa;
-import classes.Veiculo;
-
-public class app {
-
-	public static void main(String[] args) {
+public static void main(String[] args) {
 		
 		/* Listas onde serão salvas os registros */
 		List<Pessoa> listaPessoas = new ArrayList();
@@ -17,5 +10,4 @@ public class app {
 		List<Locacao> listaLocacoes = new ArrayList();
 		
 	}
-
 }

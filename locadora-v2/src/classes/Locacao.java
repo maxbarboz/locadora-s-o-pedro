@@ -1,9 +1,7 @@
 package classes;
 
-import java.util.Date;
-
 public class Locacao {
-	
+
 	private Pessoa pessoa;
 	private Veiculo veiculo;
 	private Date dataLocacao;
@@ -40,5 +38,4 @@ public class Locacao {
 	public void setValorLocacao(Long valorLocacao) {
 		this.valorLocacao = valorLocacao;
 	}
-	
 }

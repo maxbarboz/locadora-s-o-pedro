@@ -46,6 +46,4 @@ public class Veiculo {
 	public void setQuilometragem(Long quilometragem) {
 		this.quilometragem = quilometragem;
 	}
-	
-	
 }

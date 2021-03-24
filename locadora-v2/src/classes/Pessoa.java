@@ -1,7 +1,7 @@
 package classes;
 
 public class Pessoa {
-	
+
 	private String nome;
 	private char sexo;
 	private String localidade;
@@ -47,5 +47,4 @@ public class Pessoa {
 	public void setRenda(Long renda) {
 		this.renda = renda;
 	}
-
 }

@@ -169,18 +169,26 @@ public class service {
 	}
 
 	public static void cadastrarVeiculo(List listaVeiculos) {
-		String placa = JOptionPane.showInputDialog(null, "Informe o placa do veiculo:");
+		String placa = JOptionPane.showInputDialog(null, "Informe o placa do veículo:");
 		String marca = JOptionPane.showInputDialog(null, "Informe a marca:");
-		String nomeVeiculo =  JOptionPane.showInputDialog(null, "Informe o nome do veiculo");
-		Long quilometragem = Long.parseLong(JOptionPane.showInputDialog(null, "Informe a quilometragem"));
+		String nomeVeiculo =  JOptionPane.showInputDialog(null, "Informe o nome do veículo:");
+		String quilometragem = JOptionPane.showInputDialog(null, "Informe a quilometragem:");
 
-		if(placa.isEmpty() || marca.isEmpty() || nomeVeiculo.isEmpty() || Objects.isNull(quilometragem)){
+		if(!verificaPlacaVeiculo(placa)) {
+			JOptionPane.showMessageDialog(null , "Favor informar uma placa válida: 7 DIGITOS!");
+			cadastrarVeiculo(listaVeiculos);
+		}
+		
+		if(placa.isEmpty() || marca.isEmpty() || nomeVeiculo.isEmpty() || quilometragem.isEmpty()){
 			JOptionPane.showMessageDialog(null , "Favor preencher todos os dados obrigatórios!");
 			cadastrarVeiculo(listaVeiculos);
 		}
 
-		listaVeiculos.add( new Veiculo(placa, marca, nomeVeiculo, quilometragem) );
-
+		listaVeiculos.add(new Veiculo(placa, marca, nomeVeiculo, Integer.parseInt(quilometragem)));
+	}
+	
+	public static boolean verificaPlacaVeiculo(String placa) {	
+		return placa.length() == 7 ? true : false;
 	}
 
 	public static void listarVeiculos(List<Veiculo> listaVeiculos) {

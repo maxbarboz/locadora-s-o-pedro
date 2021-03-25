@@ -29,6 +29,7 @@ public class Menu {
 					"\n\n[1] - Cadastrar"+
 					"\n[2] - Listar"+
 					"\n[3] - Deletar"+
+					"\n[4] - Voltar ao Menu Anterior"+
 					"\n\n[0] - Sair do programa ";
 			opc = Integer.parseInt(JOptionPane.showInputDialog(null, menu));
 			return opc;
@@ -47,6 +48,7 @@ public class Menu {
 					"\n\n[1] - Cadastrar"+
 					"\n[2] - Listar"+
 					"\n[3] - Deletar"+
+					"\n[4] - Voltar ao Menu Anterior"+
 					"\n\n[0] - Sair do programa ";
 			opc = Integer.parseInt(JOptionPane.showInputDialog(null, menu));
 			return opc;
@@ -65,6 +67,7 @@ public class Menu {
 					"\n\n[1] - Cadastrar"+
 					"\n[2] - Listar"+
 					"\n[3] - Deletar"+
+					"\n[4] - Voltar ao Menu Anterior"+
 					"\n\n[0] - Sair do programa ";
 			opc = Integer.parseInt(JOptionPane.showInputDialog(null, menu));
 			return opc;
@@ -72,7 +75,7 @@ public class Menu {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null , "Atenção: Digite valores númericos de 0 a 3 de acordo com as opções do menu.\n\nObrigado!!");
 			return opc = getMenuLocacoes(); // chama o menu se o erro for inserção de caracteres ou valor nulo
-		// REVER 
+		// REVER
 		}
 	}
 	

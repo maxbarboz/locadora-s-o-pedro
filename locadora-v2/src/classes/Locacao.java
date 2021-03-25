@@ -1,14 +1,35 @@
 package classes;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Locacao {
 
+	private String codigo;
 	private Pessoa pessoa;
 	private Veiculo veiculo;
-	private Date dataLocacao;
+	private LocalDate dataLocacao;
 	private Long valorLocacao;
-	
+
+	public Locacao() {
+	}
+
+	public Locacao(String codigo, Pessoa pessoa, Veiculo veiculo, LocalDate dataLocacao, Long valorLocacao) {
+		this.codigo = codigo;
+		this.pessoa = pessoa;
+		this.veiculo = veiculo;
+		this.dataLocacao = dataLocacao;
+		this.valorLocacao = valorLocacao;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -25,11 +46,11 @@ public class Locacao {
 		this.veiculo = veiculo;
 	}
 	
-	public Date getDataLocacao() {
+	public LocalDate getDataLocacao() {
 		return dataLocacao;
 	}
 	
-	public void setDataLocacao(Date dataLocacao) {
+	public void setDataLocacao(LocalDate dataLocacao) {
 		this.dataLocacao = dataLocacao;
 	}
 	

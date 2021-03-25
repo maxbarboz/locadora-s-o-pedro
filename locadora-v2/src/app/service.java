@@ -131,15 +131,14 @@ public class service {
 						.append("Nome: " + locacao.getPessoa().getNome()).append("\n")
 						.append("Nome do Veículo: " + locacao.getVeiculo().getNomeVeiculo()).append("\n")
 						.append("Placa: " + locacao.getVeiculo().getPlaca()).append("\n")
-						.append("Data Locação: " + locacao.getDataLocacao().toString()).append("\n")
-						.append("Quilometragem: " + locacao.getVeiculo().getQuilometragem()).append("\n\n");
+						.append("Data Locação: " + locacao.getDataLocacao().toString()).append("\n");
 			});
 		}
 
 		new Scroll(exibicao.toString(), "LISTAGEM DE LOCAÇÕES:");
 	}
 
-	public static void cadastrarLocacao(List<Locacao> locacoes, List<Pessoa> pessoas, List<Veiculo> veiculos){
+	public static List cadastrarLocacao(List<Locacao> locacoes, List<Pessoa> pessoas, List<Veiculo> veiculos){
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código de registro:");
 		String codigoPessoa = JOptionPane.showInputDialog(null, "Informe o codigo da Pessoa:");
 		String placaVeiculo =  JOptionPane.showInputDialog(null, "Informe a placa do Veículo:");
@@ -153,7 +152,7 @@ public class service {
 		if(pessoaOptional.isPresent()){
 			pessoa = pessoaOptional.get();
 		} else {
-			cadastrarLocacao(locacoes, pessoas, veiculos);
+			return cadastrarLocacao(locacoes, pessoas, veiculos);
 		}
 
 		Optional<Veiculo> optionalVeiculo = buscarVeiculoPorCodigo(placaVeiculo, veiculos);
@@ -162,15 +161,17 @@ public class service {
 		if(optionalVeiculo.isPresent()){
 			veiculo = optionalVeiculo.get();
 		} else {
-			cadastrarLocacao(locacoes, pessoas, veiculos);
+			return cadastrarLocacao(locacoes, pessoas, veiculos);
 		}
 
 		if(codigo.isEmpty() || codigoPessoa.isEmpty() || placaVeiculo.isEmpty()){
 			JOptionPane.showMessageDialog(null , "Favor preencher todos os dados obrigatórios!");
-			cadastrarLocacao(locacoes, pessoas, veiculos);
+			return cadastrarLocacao(locacoes, pessoas, veiculos);
 		}
 
 		locacoes.add(new Locacao(codigo, pessoa, veiculo, dataAtual, valor));
+		
+		return locacoes;
 	}
 
 	public static Optional<Veiculo> buscarVeiculoPorCodigo(String placa, List<Veiculo> listarVeiculo){
@@ -187,7 +188,7 @@ public class service {
 		locacoes.removeIf(item -> item.getCodigo().equals(codigo));
 	}
 	
-	public static void cadastrarCliente(List listaClientes) {
+	public static List cadastrarCliente(List listaClientes) {
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código de registro:");
 		String nome = JOptionPane.showInputDialog(null, "Informe o nome:");
 		String sexo =  JOptionPane.showInputDialog(null, "Informe o sexo (M - Masculino e F - Feminino):");
@@ -196,25 +197,27 @@ public class service {
 		
 		if(verificaCodigoPessoa(listaClientes, codigo)) {
 			JOptionPane.showMessageDialog(null , "Código já utilizado, favor informar outro!");
-			cadastrarCliente(listaClientes);
+			return cadastrarCliente(listaClientes);
 		}
 		
 		if(!verificaSexoPessoa(sexo)) {
 			JOptionPane.showMessageDialog(null , "Favor informar um valor válido (M - Masculino e F - Feminino):");
-			cadastrarCliente(listaClientes);
+			return cadastrarCliente(listaClientes);
 		}
 		
 		if(!verificaCpf(cpf)) {
 			JOptionPane.showMessageDialog(null , "Favor informar um CPF válido (COM 11 DIGITOS):");
-			cadastrarCliente(listaClientes);
+			return cadastrarCliente(listaClientes);
 		}
 		
 		if(codigo.isEmpty() || nome.isEmpty() || sexo.isEmpty() || cpf.isEmpty()) {
 			JOptionPane.showMessageDialog(null , "Favor preencher todos os dados obrigatórios!");
-			cadastrarCliente(listaClientes);
+			return cadastrarCliente(listaClientes);
 		}
 		
 		listaClientes.add(localidade.isEmpty() ? new Pessoa(codigo, nome, sexo, cpf) : new Pessoa(codigo, nome, sexo, localidade, cpf));
+		
+		return listaClientes;
 	}
 	
 	public static boolean verificaCodigoPessoa(List<Pessoa> listaClientes, String codigo) {
@@ -263,22 +266,33 @@ public class service {
 		}	
 	}
 
-	public static void cadastrarVeiculo(List listaVeiculos) {
+	public static List cadastrarVeiculo(List listaVeiculos) {
 		String placa = JOptionPane.showInputDialog(null, "Informe o placa do veículo:");
 		String marca = JOptionPane.showInputDialog(null, "Informe a marca:");
 		String nomeVeiculo =  JOptionPane.showInputDialog(null, "Informe o nome do veículo:");
 
 		if(!verificaPlacaVeiculo(placa)) {
 			JOptionPane.showMessageDialog(null , "Favor informar uma placa válida: 7 DIGITOS!");
-			cadastrarVeiculo(listaVeiculos);
+			return cadastrarVeiculo(listaVeiculos);
 		}
 		
-		if(placa.isEmpty() || marca.isEmpty() || nomeVeiculo.isEmpty() || quilometragem.isEmpty()){
+		if(verificaPlacaVeiculoRepetida(listaVeiculos, placa)) {
+			JOptionPane.showMessageDialog(null , "Placa já cadastrada no sistema!");
+			return cadastrarCliente(listaVeiculos);
+		}
+		
+		if(placa.isEmpty() || marca.isEmpty() || nomeVeiculo.isEmpty()){
 			JOptionPane.showMessageDialog(null , "Favor preencher todos os dados obrigatórios!");
-			cadastrarVeiculo(listaVeiculos);
+			return cadastrarVeiculo(listaVeiculos);
 		}
 
-		listaVeiculos.add(new Veiculo(placa, marca, nomeVeiculo, Integer.parseInt(quilometragem)));
+		listaVeiculos.add(new Veiculo(placa, marca, nomeVeiculo));
+		
+		return listaVeiculos;
+	}
+	
+	public static boolean verificaPlacaVeiculoRepetida(List<Veiculo> listaVeiculos, String placa) {
+		return listaVeiculos.stream().filter(entidade -> entidade.getPlaca().equals(placa)).findFirst().isPresent();	
 	}
 	
 	public static boolean verificaPlacaVeiculo(String placa) {	
@@ -288,20 +302,17 @@ public class service {
 	public static void listarVeiculos(List<Veiculo> listaVeiculos) {
 		StringBuilder exibicao = new StringBuilder();
 
-		exibicao.append("LISTAGEM DE VEICULOS:\n\n");
-
 		if(listaVeiculos.isEmpty()) {
 			exibicao.append("\nNão existe registro para a listagem");
 		} else {
 			listaVeiculos.forEach(veiculo -> {
 				exibicao.append("Placa: " + veiculo.getPlaca()).append("\n")
 						.append("Marca: " + veiculo.getMarca()).append("\n")
-						.append("Nome do veiculo: " + veiculo.getNomeVeiculo()).append("\n")
-						.append("Quilometragem: " + veiculo.getQuilometragem()).append("\n");
+						.append("Nome do veiculo: " + veiculo.getNomeVeiculo()).append("\n\n");
 			});
 		}
 
-		JOptionPane.showMessageDialog(null , exibicao);
+		Scroll scroll = new Scroll(exibicao.toString(), "LISTAGEM DE VEICULOS:");
 	}
 
 	public static void removerVeiculoPorPlaca(List<Veiculo> listaVeiculos) {

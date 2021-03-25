@@ -35,7 +35,7 @@ public class Menu {
 			return opc;
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null , "Atenção: Digite valores númericos de 0 a 3 de acordo com as opções do menu.\n\nObrigado!!");
+			JOptionPane.showMessageDialog(null , "Atenção: Digite valores númericos de 0 a 4 de acordo com as opções do menu.\n\nObrigado!!");
 			return opc = getMenuPessoas(); // chama o menu se o erro for inserção de caracteres ou valor nulo
 		// REVER 
 		}
@@ -54,7 +54,7 @@ public class Menu {
 			return opc;
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null , "Atenção: Digite valores númericos de 0 a 3 de acordo com as opções do menu.\n\nObrigado!!");
+			JOptionPane.showMessageDialog(null , "Atenção: Digite valores númericos de 0 a 4 de acordo com as opções do menu.\n\nObrigado!!");
 			return opc = getMenuVeiculos(); // chama o menu se o erro for inserção de caracteres ou valor nulo
 		// REVER 
 		}
@@ -73,7 +73,7 @@ public class Menu {
 			return opc;
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null , "Atenção: Digite valores númericos de 0 a 3 de acordo com as opções do menu.\n\nObrigado!!");
+			JOptionPane.showMessageDialog(null , "Atenção: Digite valores númericos de 0 a 4 de acordo com as opções do menu.\n\nObrigado!!");
 			return opc = getMenuLocacoes(); // chama o menu se o erro for inserção de caracteres ou valor nulo
 		// REVER
 		}

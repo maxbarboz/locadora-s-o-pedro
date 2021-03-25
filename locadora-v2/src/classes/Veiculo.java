@@ -5,14 +5,16 @@ public class Veiculo {
 	private String placa;
 	private String marca;
 	private String nomeVeiculo;
-	private Long quilometragem;
 	private char locado = 0;
 
-	public Veiculo(String placa, String marca, String nomeVeiculo, Long quilometragem){
+	public Veiculo(String placa, String marca, String nomeVeiculo){
 		this.placa = placa;
 		this.marca = marca;
 		this.nomeVeiculo = nomeVeiculo;
-		this.quilometragem = quilometragem;
+	}
+	
+	public Veiculo() {
+		
 	}
 
 	public char getLocado() {

@@ -37,7 +37,7 @@ public class LocacaoService {
 						.append("Nome: " + locacao.getPessoa().getNome()).append("\n")
 						.append("Nome do Veículo: " + locacao.getVeiculo().getNomeVeiculo()).append("\n")
 						.append("Placa: " + locacao.getVeiculo().getPlaca()).append("\n")
-						.append("Data Locação: " + locacao.getDataLocacao().toString()).append("\n");
+						.append("Data Locação: " + locacao.getDataLocacao().toString()).append("\n\n");
 			});
 		}
 
@@ -56,7 +56,7 @@ public class LocacaoService {
 						.append("Nome: " + locacao.getPessoa().getNome()).append("\n")
 						.append("Nome do Veículo: " + locacao.getVeiculo().getNomeVeiculo()).append("\n")
 						.append("Placa: " + locacao.getVeiculo().getPlaca()).append("\n")
-						.append("Data Locação: " + locacao.getDataLocacao().toString()).append("\n");
+						.append("Data Locação: " + locacao.getDataLocacao().toString()).append("\n\n");
 			});
 		}
 
@@ -71,6 +71,11 @@ public class LocacaoService {
 
 		LocalDate dataAtual = LocalDate.now();
 
+		if(verificaCodigoLocacao(locacoes, codigo)) {
+			JOptionPane.showMessageDialog(null , "Código já utilizado, favor informar outro!");
+			return cadastrarLocacao(locacoes, pessoas, veiculos);
+		}
+		
 		Optional<Pessoa> pessoaOptional = buscarPessoaPorCodigo(codigoPessoa, pessoas);
 		Pessoa pessoa = new Pessoa();
 
@@ -114,5 +119,9 @@ public class LocacaoService {
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código da locação a ser removido:");
 
 		locacoes.removeIf(item -> item.getCodigo().equals(codigo));
+	}
+	
+	public static boolean verificaCodigoLocacao(List<Locacao> listaLocacoes, String codigo) {
+		return listaLocacoes.stream().filter(entidade -> entidade.getCodigo().equals(codigo)).findFirst().isPresent();	
 	}
 }

@@ -52,15 +52,15 @@ public class VeiculoService {
 			listaVeiculos.forEach(veiculo -> {
 				exibicao.append("Placa: " + veiculo.getPlaca()).append("\n")
 						.append("Marca: " + veiculo.getMarca()).append("\n")
-						.append("Nome do veiculo: " + veiculo.getNomeVeiculo()).append("\n\n");
+						.append("Nome do veículo: " + veiculo.getNomeVeiculo()).append("\n\n");
 			});
 		}
 
-		Scroll scroll = new Scroll(exibicao.toString(), "LISTAGEM DE VEICULOS:");
+		Scroll scroll = new Scroll(exibicao.toString(), "LISTAGEM DE VEÍCULOS:");
 	}
 
 	public static void removerVeiculoPorPlaca(List<Veiculo> listaVeiculos) {
-		String placa = JOptionPane.showInputDialog(null, "Informe a placa do veiculo a ser removido:");
+		String placa = JOptionPane.showInputDialog(null, "Informe a placa do veículo a ser removido:");
 
 		Optional<Veiculo> veiculo = listaVeiculos.stream().filter(entidade -> entidade.getPlaca().equals(placa)).findFirst();
 
@@ -70,7 +70,7 @@ public class VeiculoService {
 
 			listaVeiculos.remove(indexVeiculo);
 
-			JOptionPane.showMessageDialog(null , "Veiculo removido com sucesso!");
+			JOptionPane.showMessageDialog(null , "Veículo removido com sucesso!");
 		} else {
 			JOptionPane.showMessageDialog(null , "Registro não encontrado!");
 		}

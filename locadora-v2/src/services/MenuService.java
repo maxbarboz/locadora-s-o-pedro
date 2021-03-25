@@ -44,7 +44,7 @@ public class MenuService {
 	public static int getMenuVeiculos() {
 		int opc = 0;
 		try {
-			String menu = "Informe a opção que deseja referente a VEICULOS:"+
+			String menu = "Informe a opção que deseja referente a VEÍCULOS:"+
 					"\n\n[1] - Cadastrar"+
 					"\n[2] - Listar"+
 					"\n[3] - Deletar"+

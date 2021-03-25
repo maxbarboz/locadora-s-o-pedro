@@ -1,8 +1,8 @@
-package util;
+package services;
 
 import javax.swing.JOptionPane;
 
-public class Menu {
+public class MenuService {
 
 	public static int menu () {
 

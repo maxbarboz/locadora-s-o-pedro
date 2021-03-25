@@ -1,9 +1,13 @@
 package app;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.swing.JOptionPane;
 
@@ -49,6 +53,9 @@ public class service {
 				case 3:
 					removerClientePorCodigo(listaPessoas);
 					break;
+				case 4:
+					opcaoMenu = Menu.menu();
+					break;
 				case 0:
 					JOptionPane.showMessageDialog(null , "Programa finalizado pelo usuário!");
 					break;
@@ -67,19 +74,29 @@ public class service {
 				case 3:
 					removerVeiculoPorPlaca(listaVeiculos);
 					break;
+				case 4:
+					opcaoMenu = Menu.menu();
+					break;
 				case 0:
 					JOptionPane.showMessageDialog(null , "Programa finalizado pelo usuário!");
 					break;
 				}
 				break;
 			case OPTION_LOCACOES:
-				opcaoMenuSecundario = Menu.getMenuVeiculos();
+				opcaoMenuSecundario = Menu.getMenuLocacoes();
 				switch(opcaoMenuSecundario) {
 				case 1:
+					cadastrarLocacao(listaLocacoes, listaPessoas, listaVeiculos);
+					JOptionPane.showMessageDialog(null , "Locação cadastrada com sucesso!");
 					break;
 				case 2:
+					listarLocacao(listaLocacoes);
 					break;
 				case 3:
+					deletarLocacao(listaLocacoes);
+					break;
+				case 4:
+					opcaoMenu = Menu.menu();
 					break;
 				case 0:
 					JOptionPane.showMessageDialog(null , "Programa finalizado pelo usuário!");
@@ -89,6 +106,85 @@ public class service {
 			}
 		} while(opcaoMenu != 0 && opcaoMenuSecundario != 0);
 		
+	}
+
+	public static void listarLocacao(List<Locacao> locacoes){
+		String filtroPessoa = JOptionPane.showInputDialog(null, "Informe o filtro de pessoa:");
+		String filtroVeiculo = JOptionPane.showInputDialog(null, "Informe o filtro do veiculo:");
+
+		List<Locacao> locacoesFlitradas;
+
+		if(filtroVeiculo.isEmpty() && filtroPessoa.isEmpty()){
+			locacoesFlitradas = locacoes;
+		} else {
+			locacoesFlitradas = locacoes.stream().filter(item -> item.getPessoa().getNome().equals(filtroPessoa) || item.getVeiculo().equals(filtroVeiculo))
+					.collect(Collectors.toList());
+		}
+
+		StringBuilder exibicao = new StringBuilder();
+
+		if(locacoesFlitradas.isEmpty()) {
+			exibicao.append("\nNão existe registro para a listagem");
+		} else {
+			locacoesFlitradas.forEach(locacao -> {
+				exibicao.append("Código: " + locacao.getCodigo()).append("\n")
+						.append("Nome: " + locacao.getPessoa().getNome()).append("\n")
+						.append("Nome do Veículo: " + locacao.getVeiculo().getNomeVeiculo()).append("\n")
+						.append("Placa: " + locacao.getVeiculo().getPlaca()).append("\n")
+						.append("Data Locação: " + locacao.getDataLocacao().toString()).append("\n")
+						.append("Quilometragem: " + locacao.getVeiculo().getQuilometragem()).append("\n\n");
+			});
+		}
+
+		new Scroll(exibicao.toString(), "LISTAGEM DE LOCAÇÕES:");
+	}
+
+	public static void cadastrarLocacao(List<Locacao> locacoes, List<Pessoa> pessoas, List<Veiculo> veiculos){
+		String codigo = JOptionPane.showInputDialog(null, "Informe o código de registro:");
+		String codigoPessoa = JOptionPane.showInputDialog(null, "Informe o codigo da Pessoa:");
+		String placaVeiculo =  JOptionPane.showInputDialog(null, "Informe a placa do Veículo:");
+		Long valor = Long.parseLong(JOptionPane.showInputDialog(null, "Informe o valor da Locação:"));
+
+		LocalDate dataAtual = LocalDate.now();
+
+		Optional<Pessoa> pessoaOptional = buscarPessoaPorCodigo(codigoPessoa, pessoas);
+		Pessoa pessoa = new Pessoa();
+
+		if(pessoaOptional.isPresent()){
+			pessoa = pessoaOptional.get();
+		} else {
+			cadastrarLocacao(locacoes, pessoas, veiculos);
+		}
+
+		Optional<Veiculo> optionalVeiculo = buscarVeiculoPorCodigo(placaVeiculo, veiculos);
+		Veiculo veiculo = new Veiculo();
+
+		if(optionalVeiculo.isPresent()){
+			veiculo = optionalVeiculo.get();
+		} else {
+			cadastrarLocacao(locacoes, pessoas, veiculos);
+		}
+
+		if(codigo.isEmpty() || codigoPessoa.isEmpty() || placaVeiculo.isEmpty()){
+			JOptionPane.showMessageDialog(null , "Favor preencher todos os dados obrigatórios!");
+			cadastrarLocacao(locacoes, pessoas, veiculos);
+		}
+
+		locacoes.add(new Locacao(codigo, pessoa, veiculo, dataAtual, valor));
+	}
+
+	public static Optional<Veiculo> buscarVeiculoPorCodigo(String placa, List<Veiculo> listarVeiculo){
+		return listarVeiculo.stream().filter(entidade -> entidade.getPlaca().equals(placa)).findFirst();
+	}
+
+	public static Optional<Pessoa> buscarPessoaPorCodigo(String codigo, List<Pessoa> listaClientes){
+		return listaClientes.stream().filter(entidade -> entidade.getCodigo().equals(codigo)).findFirst();
+	}
+
+	public static void deletarLocacao(List<Locacao> locacoes){
+		String codigo = JOptionPane.showInputDialog(null, "Informe o código da locação a ser removido:");
+
+		locacoes.removeIf(item -> item.getCodigo().equals(codigo));
 	}
 	
 	public static void cadastrarCliente(List listaClientes) {
@@ -154,9 +250,8 @@ public class service {
 	public static void removerClientePorCodigo(List<Pessoa> listaClientes) {
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código do cliente a ser removido:");
 		
-		Optional<Pessoa> pessoa = listaClientes.stream().filter(entidade -> entidade.getCodigo().equals(codigo)).findFirst();
-		
-		
+		Optional<Pessoa> pessoa = buscarPessoaPorCodigo(codigo, listaClientes);
+
 		if(pessoa.isPresent()) {
 			int indexPessoa = listaClientes.indexOf(pessoa.get());
 			
@@ -172,7 +267,6 @@ public class service {
 		String placa = JOptionPane.showInputDialog(null, "Informe o placa do veículo:");
 		String marca = JOptionPane.showInputDialog(null, "Informe a marca:");
 		String nomeVeiculo =  JOptionPane.showInputDialog(null, "Informe o nome do veículo:");
-		String quilometragem = JOptionPane.showInputDialog(null, "Informe a quilometragem:");
 
 		if(!verificaPlacaVeiculo(placa)) {
 			JOptionPane.showMessageDialog(null , "Favor informar uma placa válida: 7 DIGITOS!");

@@ -46,11 +46,4 @@ public class Veiculo {
 	public void setNomeVeiculo(String nomeVeiculo) {
 		this.nomeVeiculo = nomeVeiculo;
 	}
-	
-	public Long getQuilometragem() {
-		return quilometragem;
-	}
-	public void setQuilometragem(Long quilometragem) {
-		this.quilometragem = quilometragem;
-	}
 }

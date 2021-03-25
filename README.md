@@ -20,3 +20,6 @@ O sistema cuidara das funções de registros de locações:
 - Listagem de locações com filtro
 
 Dentre outras funções.
+
+
+![image](https://user-images.githubusercontent.com/55251002/112459491-a7574280-8d3c-11eb-9ae5-817611e89f14.png)

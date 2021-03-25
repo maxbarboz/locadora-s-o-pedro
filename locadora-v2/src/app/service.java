@@ -2,6 +2,7 @@ package app;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.swing.JOptionPane;
@@ -57,10 +58,14 @@ public class service {
 				opcaoMenuSecundario = Menu.getMenuVeiculos();
 				switch(opcaoMenuSecundario) {
 				case 1:
+					cadastrarVeiculo(listaVeiculos);
+					JOptionPane.showMessageDialog(null , "Veiculo cadastrado com sucesso!");
 					break;
 				case 2:
+					listarVeiculos(listaVeiculos);
 					break;
 				case 3:
+					removerVeiculoPorPlaca(listaVeiculos);
 					break;
 				case 0:
 					JOptionPane.showMessageDialog(null , "Programa finalizado pelo usuário!");
@@ -137,6 +142,59 @@ public class service {
 		} else {
 			JOptionPane.showMessageDialog(null , "Registro não encontrado!");
 		}	
-	}	
+	}
+
+	public static void cadastrarVeiculo(List listaVeiculos) {
+		String placa = JOptionPane.showInputDialog(null, "Informe o placa do veiculo:");
+		String marca = JOptionPane.showInputDialog(null, "Informe a marca:");
+		String nomeVeiculo =  JOptionPane.showInputDialog(null, "Informe o nome do veiculo");
+		Long quilometragem = Long.parseLong(JOptionPane.showInputDialog(null, "Informe a quilometragem"));
+
+		if(placa.isEmpty() || marca.isEmpty() || nomeVeiculo.isEmpty() || Objects.isNull(quilometragem)){
+			JOptionPane.showMessageDialog(null , "Favor preencher todos os dados obrigatórios!");
+			cadastrarVeiculo(listaVeiculos);
+		}
+
+		listaVeiculos.add( new Veiculo(placa, marca, nomeVeiculo, quilometragem) );
+
+	}
+
+	public static void listarVeiculos(List<Veiculo> listaVeiculos) {
+		StringBuilder exibicao = new StringBuilder();
+
+		exibicao.append("LISTAGEM DE VEICULOS:\n\n");
+
+		if(listaVeiculos.isEmpty()) {
+			exibicao.append("\nNão existe registro para a listagem");
+		} else {
+			listaVeiculos.forEach(veiculo -> {
+				exibicao.append("Placa: " + veiculo.getPlaca()).append("\n")
+						.append("Marca: " + veiculo.getMarca()).append("\n")
+						.append("Nome do veiculo: " + veiculo.getNomeVeiculo()).append("\n")
+						.append("Quilometragem: " + veiculo.getQuilometragem()).append("\n");
+			});
+		}
+
+		JOptionPane.showMessageDialog(null , exibicao);
+	}
+
+	public static void removerVeiculoPorPlaca(List<Veiculo> listaVeiculos) {
+		String placa = JOptionPane.showInputDialog(null, "Informe a placa do veiculo a ser removido:");
+
+		Optional<Veiculo> veiculo = listaVeiculos.stream().filter(entidade -> entidade.getPlaca().equals(placa)).findFirst();
+
+
+		if(veiculo.isPresent()) {
+			int indexVeiculo = listaVeiculos.indexOf(veiculo.get());
+
+			listaVeiculos.remove(indexVeiculo);
+
+			JOptionPane.showMessageDialog(null , "Veiculo removido com sucesso!");
+		} else {
+			JOptionPane.showMessageDialog(null , "Registro não encontrado!");
+		}
+	}
 
 }
+
+

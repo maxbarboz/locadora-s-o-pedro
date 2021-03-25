@@ -5,14 +5,15 @@ public class Veiculo {
 	private String placa;
 	private String marca;
 	private String nomeVeiculo;
-	private Long quilometragem;
 	private char locado;
 
-	public Veiculo(String placa,String marca,String nomeVeiculo,Long quilometragem){
+	public Veiculo() {
+	}
+
+	public Veiculo(String placa, String marca, String nomeVeiculo){
 		this.placa = placa;
 		this.marca = marca;
 		this.nomeVeiculo = nomeVeiculo;
-		this.quilometragem = quilometragem;
 		this.locado=0;
 	}
 
@@ -46,12 +47,5 @@ public class Veiculo {
 	
 	public void setNomeVeiculo(String nomeVeiculo) {
 		this.nomeVeiculo = nomeVeiculo;
-	}
-	
-	public Long getQuilometragem() {
-		return quilometragem;
-	}
-	public void setQuilometragem(Long quilometragem) {
-		this.quilometragem = quilometragem;
 	}
 }

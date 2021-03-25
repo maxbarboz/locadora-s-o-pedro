@@ -1,22 +1,21 @@
 package util;
 
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 
 public class Scroll extends JFrame {
-	public Scroll(String texto) {
-		JTextArea caixaDeTexto = new JTextArea(texto); // O JTextArea é uma área para textos que pode conter várias linhas e várias colunas
-		JScrollPane scroll = new JScrollPane(caixaDeTexto); // O JScrollPane adiciona um scroll de rolagem
+	public Scroll(String texto, String cabecalio) {
+		JTextArea textArea = new JTextArea(texto);
+		JScrollPane scrollPane = new JScrollPane(textArea);  
 		
-		// configurações do scroll
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(1250, 700);
-		setLocationRelativeTo(null);
-		setVisible(true);
+		textArea.setLineWrap(true);  
+		textArea.setWrapStyleWord(true); 
+		scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
 		
-		add(scroll , JOptionPane.YES_NO_OPTION);
-		
+		JOptionPane.showMessageDialog(null, scrollPane, cabecalio, JOptionPane.NO_OPTION);
 	}
 }

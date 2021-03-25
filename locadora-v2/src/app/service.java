@@ -12,6 +12,7 @@ import classes.Locacao;
 import classes.Pessoa;
 import classes.Veiculo;
 import util.Menu;
+import util.Scroll;
 
 public class service {
 
@@ -28,7 +29,6 @@ public class service {
 
 		int opcaoMenu = 0;
 		int opcaoMenuSecundario = 0;
-		
 		JOptionPane.showMessageDialog(null ,  Menu.getMessageIntro());
 		
 		opcaoMenu = Menu.menu();
@@ -91,8 +91,22 @@ public class service {
 		String nome = JOptionPane.showInputDialog(null, "Informe o nome:");
 		String sexo =  JOptionPane.showInputDialog(null, "Informe o sexo (M - Masculino e F - Feminino):");
 		String cpf = JOptionPane.showInputDialog(null, "Informe o CPF:");
-		
 		String localidade = JOptionPane.showInputDialog(null, "Informe a localidade: \n\nobs.: Localidade é opcional");
+		
+		if(verificaCodigoPessoa(listaClientes, codigo)) {
+			JOptionPane.showMessageDialog(null , "Código já utilizado, favor informar outro!");
+			cadastrarCliente(listaClientes);
+		}
+		
+		if(!verificaSexoPessoa(sexo)) {
+			JOptionPane.showMessageDialog(null , "Favor informar um valor válido (M - Masculino e F - Feminino):");
+			cadastrarCliente(listaClientes);
+		}
+		
+		if(!verificaCpf(cpf)) {
+			JOptionPane.showMessageDialog(null , "Favor informar um CPF válido (COM 11 DIGITOS):");
+			cadastrarCliente(listaClientes);
+		}
 		
 		if(codigo.isEmpty() || nome.isEmpty() || sexo.isEmpty() || cpf.isEmpty()) {
 			JOptionPane.showMessageDialog(null , "Favor preencher todos os dados obrigatórios!");
@@ -102,10 +116,20 @@ public class service {
 		listaClientes.add(localidade.isEmpty() ? new Pessoa(codigo, nome, sexo, cpf) : new Pessoa(codigo, nome, sexo, localidade, cpf));
 	}
 	
+	public static boolean verificaCodigoPessoa(List<Pessoa> listaClientes, String codigo) {
+		return listaClientes.stream().filter(entidade -> entidade.getCodigo().equals(codigo)).findFirst().isPresent();	
+	}
+	
+	public static boolean verificaSexoPessoa(String sexo) {
+		return (sexo.equalsIgnoreCase("M") || sexo.equalsIgnoreCase("F")) ? true : false;	
+	}
+	
+	public static boolean verificaCpf(String cpf) {
+		return cpf.length() == 11 ? true : false;	
+	}
+	
 	public static void listarClientes(List<Pessoa> listaClientes) {
 		StringBuilder exibicao = new StringBuilder();
-		
-		exibicao.append("LISTAGEM DE CLIENTES:\n\n");
 		
 		if(listaClientes.isEmpty()) {
 			exibicao.append("\nNão existe registro para a listagem");
@@ -118,8 +142,8 @@ public class service {
 						.append("Sexo: " + pessoa.getSexo()).append("\n\n");
 			});
 		}
-			
-		JOptionPane.showMessageDialog(null , exibicao);
+		
+		Scroll scroll = new Scroll(exibicao.toString(), "LISTAGEM DE CLIENTES:");
 	}
 	
 	public static void removerClientePorCodigo(List<Pessoa> listaClientes) {

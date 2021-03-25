@@ -79,6 +79,23 @@ public class MenuService {
 		}
 	}
 	
+	public static int getListagemLocacao() {
+		int opc = 0;
+		try {
+			String menu = "Informe a opção de listagem:"+
+					"\n\n[1] - Filtrar"+
+					"\n[2] - Exibir todos"+
+					"\n\n[0] - Sair do programa ";
+			opc = Integer.parseInt(JOptionPane.showInputDialog(null, menu));
+			return opc;
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null , "Atenção: Digite valores númericos de 0 a 2 de acordo com as opções do menu.\n\nObrigado!!");
+			return opc = getMenuLocacoes(); // chama o menu se o erro for inserção de caracteres ou valor nulo
+		// REVER
+		}
+	}
+	
 	public static String getMessageIntro() {
 		StringBuilder intro = new StringBuilder();
 		

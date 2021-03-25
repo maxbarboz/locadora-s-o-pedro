@@ -42,6 +42,8 @@ public class app {
 
 		int opcaoMenu = 0;
 		int opcaoMenuSecundario = 0;
+		int opcaoListagem = 0;
+		
 		JOptionPane.showMessageDialog(null ,  MenuService.getMessageIntro());
 
 		opcaoMenu = MenuService.menu();
@@ -101,10 +103,23 @@ public class app {
 				switch(opcaoMenuSecundario) {
 				case 1:
 					LocacaoService.cadastrarLocacao(listaLocacoes, listaPessoas, listaVeiculos);
-					JOptionPane.showMessageDialog(null , "Locação cadastrada com sucesso!");
 					break;
 				case 2:
-					LocacaoService.listarLocacao(listaLocacoes);
+					opcaoListagem = MenuService.getListagemLocacao();
+					switch(opcaoListagem) {
+					case 1:
+						LocacaoService.listarLocacaoComFiltro(listaLocacoes);
+						break;
+					case 2:
+						LocacaoService.listarLocacaoSemFiltro(listaLocacoes);
+						break;
+					case 0:
+						JOptionPane.showMessageDialog(null , MESSAGE_FINALIZADO_USUARIO);
+						break;
+					default:
+						JOptionPane.showMessageDialog(null , MESSAGE_OPCAO_INVALIDA);
+						break;
+					}
 					break;
 				case 3:
 					LocacaoService.deletarLocacao(listaLocacoes);

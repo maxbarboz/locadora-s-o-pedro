@@ -14,7 +14,7 @@ import util.Scroll;
 
 public class LocacaoService {
 
-	public static void listarLocacao(List<Locacao> locacoes){
+	public static void listarLocacaoComFiltro(List<Locacao> locacoes){
 		String filtroPessoa = JOptionPane.showInputDialog(null, "Informe o filtro de pessoa:");
 		String filtroVeiculo = JOptionPane.showInputDialog(null, "Informe o filtro do veiculo:");
 
@@ -23,8 +23,8 @@ public class LocacaoService {
 		if(filtroVeiculo.isEmpty() && filtroPessoa.isEmpty()){
 			locacoesFlitradas = locacoes;
 		} else {
-			locacoesFlitradas = locacoes.stream().filter(item -> item.getPessoa().getNome().equals(filtroPessoa) || item.getVeiculo().equals(filtroVeiculo))
-					.collect(Collectors.toList());
+			locacoesFlitradas = locacoes.stream().filter(item -> item.getPessoa().getNome().equalsIgnoreCase(filtroPessoa) || 
+					item.getVeiculo().getPlaca().equalsIgnoreCase(filtroVeiculo)).collect(Collectors.toList());
 		}
 
 		StringBuilder exibicao = new StringBuilder();
@@ -33,6 +33,25 @@ public class LocacaoService {
 			exibicao.append("\nNão existe registro para a listagem");
 		} else {
 			locacoesFlitradas.forEach(locacao -> {
+				exibicao.append("Código: " + locacao.getCodigo()).append("\n")
+						.append("Nome: " + locacao.getPessoa().getNome()).append("\n")
+						.append("Nome do Veículo: " + locacao.getVeiculo().getNomeVeiculo()).append("\n")
+						.append("Placa: " + locacao.getVeiculo().getPlaca()).append("\n")
+						.append("Data Locação: " + locacao.getDataLocacao().toString()).append("\n");
+			});
+		}
+
+		new Scroll(exibicao.toString(), "LISTAGEM DE LOCAÇÕES DETALHADA:");
+	}
+	
+	public static void listarLocacaoSemFiltro(List<Locacao> locacoes){
+		
+		StringBuilder exibicao = new StringBuilder();
+
+		if(locacoes.isEmpty()) {
+			exibicao.append("\nNão existe registro para a listagem");
+		} else {
+			locacoes.forEach(locacao -> {
 				exibicao.append("Código: " + locacao.getCodigo()).append("\n")
 						.append("Nome: " + locacao.getPessoa().getNome()).append("\n")
 						.append("Nome do Veículo: " + locacao.getVeiculo().getNomeVeiculo()).append("\n")
@@ -58,7 +77,8 @@ public class LocacaoService {
 		if(pessoaOptional.isPresent()){
 			pessoa = pessoaOptional.get();
 		} else {
-			return cadastrarLocacao(locacoes, pessoas, veiculos);
+			JOptionPane.showMessageDialog(null , "Pessoa não encontrada nos registros, favor consultar código na listagem!");
+			return locacoes;
 		}
 
 		Optional<Veiculo> optionalVeiculo = buscarVeiculoPorCodigo(placaVeiculo, veiculos);
@@ -67,7 +87,8 @@ public class LocacaoService {
 		if(optionalVeiculo.isPresent()){
 			veiculo = optionalVeiculo.get();
 		} else {
-			return cadastrarLocacao(locacoes, pessoas, veiculos);
+			JOptionPane.showMessageDialog(null , "Placa do veículo não encontrada nos registros, favor consultar código na listagem!");
+			return locacoes;
 		}
 
 		if(codigo.isEmpty() || codigoPessoa.isEmpty() || placaVeiculo.isEmpty()){
@@ -76,6 +97,7 @@ public class LocacaoService {
 		}
 
 		locacoes.add(new Locacao(codigo, pessoa, veiculo, dataAtual, valor));
+		JOptionPane.showMessageDialog(null , "Locação cadastrada com sucesso!");
 		
 		return locacoes;
 	}

@@ -2,11 +2,30 @@ package classes;
 
 public class Pessoa {
 
+	private String codigo;
 	private String nome;
-	private char sexo;
-	private String localidade;
+	private String sexo;
+	private String localidade = "Não definida";
 	private String cpf;
-	private Long renda;
+	
+	public Pessoa() {
+		
+	}
+	
+	public Pessoa(String codigo, String nome, String sexo, String cpf) {
+		this.codigo = codigo;
+		this.nome = nome;
+		this.sexo = sexo;
+		this.cpf = cpf;
+	}
+	
+	public Pessoa(String codigo, String nome, String sexo, String localidade, String cpf) {
+		this.codigo = codigo;
+		this.nome = nome;
+		this.sexo = sexo;
+		this.localidade = localidade;
+		this.cpf = cpf;
+	}
 	
 	public String getNome() {
 		return nome;
@@ -16,12 +35,20 @@ public class Pessoa {
 		this.nome = nome;
 	}
 	
-	public char getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
 	
-	public void setSexo(char sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
+	}
+	
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 	
 	public String getLocalidade() {
@@ -38,13 +65,5 @@ public class Pessoa {
 	
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
-	}
-	
-	public Long getRenda() {
-		return renda;
-	}
-	
-	public void setRenda(Long renda) {
-		this.renda = renda;
 	}
 }

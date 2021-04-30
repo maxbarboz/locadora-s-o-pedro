@@ -77,21 +77,15 @@ public class LocacaoService {
 		}
 		
 		Optional<Pessoa> pessoaOptional = buscarPessoaPorCodigo(codigoPessoa, pessoas);
-		Pessoa pessoa = new Pessoa();
-
-		if(pessoaOptional.isPresent()){
-			pessoa = pessoaOptional.get();
-		} else {
+		
+		if(!pessoaOptional.isPresent()){
 			JOptionPane.showMessageDialog(null , "Pessoa não encontrada nos registros, favor consultar código na listagem!");
 			return locacoes;
 		}
 
 		Optional<Veiculo> optionalVeiculo = buscarVeiculoPorCodigo(placaVeiculo, veiculos);
-		Veiculo veiculo = new Veiculo();
 
-		if(optionalVeiculo.isPresent()){
-			veiculo = optionalVeiculo.get();
-		} else {
+		if(!optionalVeiculo.isPresent()){
 			JOptionPane.showMessageDialog(null , "Placa do veículo não encontrada nos registros, favor consultar código na listagem!");
 			return locacoes;
 		}
@@ -101,7 +95,7 @@ public class LocacaoService {
 			return cadastrarLocacao(locacoes, pessoas, veiculos);
 		}
 
-		locacoes.add(new Locacao(codigo, pessoa, veiculo, dataAtual, valor));
+		locacoes.add(new Locacao(codigo, pessoaOptional.get(), optionalVeiculo.get(), dataAtual, valor));
 		JOptionPane.showMessageDialog(null , "Locação cadastrada com sucesso!");
 		
 		return locacoes;

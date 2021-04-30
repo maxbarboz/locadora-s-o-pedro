@@ -8,10 +8,6 @@ public class Pessoa {
 	private String localidade = "Não definida";
 	private String cpf;
 	
-	public Pessoa() {
-		
-	}
-	
 	public Pessoa(String codigo, String nome, String sexo, String cpf) {
 		this.codigo = codigo;
 		this.nome = nome;
@@ -39,6 +35,10 @@ public class Pessoa {
 		return sexo;
 	}
 	
+	public String getCpf() {
+		return cpf;
+	}
+	
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
@@ -57,13 +57,5 @@ public class Pessoa {
 	
 	public void setLocalidade(String localidade) {
 		this.localidade = localidade;
-	}
-	
-	public String getCpf() {
-		return cpf;
-	}
-	
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
 	}
 }

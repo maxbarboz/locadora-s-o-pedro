@@ -11,9 +11,6 @@ public class Locacao {
 	private LocalDate dataLocacao;
 	private Long valorLocacao;
 
-	public Locacao() {
-	}
-
 	public Locacao(String codigo, Pessoa pessoa, Veiculo veiculo, LocalDate dataLocacao, Long valorLocacao) {
 		this.codigo = codigo;
 		this.pessoa = pessoa;

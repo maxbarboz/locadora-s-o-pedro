@@ -78,7 +78,7 @@ public class LocacaoService {
 		
 		Optional<Pessoa> pessoaOptional = buscarPessoaPorCodigo(codigoPessoa, pessoas);
 		
-		if(!pessoaOptional.isPresent()){
+		if(pessoaOptional.isEmpty()){
 			JOptionPane.showMessageDialog(null , "Pessoa não encontrada nos registros, favor consultar código na listagem!");
 			return locacoes;
 		}
@@ -116,6 +116,6 @@ public class LocacaoService {
 	}
 	
 	public static boolean verificaCodigoLocacao(List<Locacao> listaLocacoes, String codigo) {
-		return listaLocacoes.stream().filter(entidade -> entidade.getCodigo().equals(codigo)).findFirst().isPresent();	
+		return listaLocacoes.stream().anyMatch(entidade -> entidade.getCodigo().equals(codigo));
 	}
 }

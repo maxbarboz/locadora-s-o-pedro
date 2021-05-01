@@ -36,7 +36,7 @@ public class VeiculoService {
 	}
 	
 	public static boolean verificaPlacaVeiculoRepetida(List<Veiculo> listaVeiculos, String placa) {
-		return listaVeiculos.stream().filter(entidade -> entidade.getPlaca().equals(placa)).findFirst().isPresent();	
+		return listaVeiculos.stream().anyMatch(entidade -> entidade.getPlaca().equals(placa));
 	}
 	
 	public static boolean verificaPlacaVeiculo(String placa) {	

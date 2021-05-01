@@ -43,15 +43,15 @@ public class PessoaService {
 	}
 	
 	public static boolean verificaCodigoPessoa(List<Pessoa> listaClientes, String codigo) {
-		return listaClientes.stream().filter(entidade -> entidade.getCodigo().equals(codigo)).findFirst().isPresent();	
+		return listaClientes.stream().anyMatch(entidade -> entidade.getCodigo().equals(codigo));
 	}
 	
 	public static boolean verificaSexoPessoa(String sexo) {
-		return (sexo.equalsIgnoreCase("M") || sexo.equalsIgnoreCase("F")) ? true : false;	
+		return sexo.equalsIgnoreCase("M") || sexo.equalsIgnoreCase("F");
 	}
 	
 	public static boolean verificaCpf(String cpf) {
-		return cpf.length() == 11 ? true : false;	
+		return cpf.length() == 11;
 	}
 	
 	public static void listarClientes(List<Pessoa> listaClientes) {

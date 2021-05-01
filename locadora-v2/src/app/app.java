@@ -1,26 +1,15 @@
 package app;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.swing.JOptionPane;
 
-import com.sun.xml.internal.ws.util.StringUtils;
-
-import domain.Locacao;
-import domain.Pessoa;
-import domain.Veiculo;
+import domain.*;
 import services.LocacaoService;
 import services.MenuService;
 import services.PessoaService;
 import services.VeiculoService;
-import util.Scroll;
 
 public class app {
 
@@ -36,7 +25,8 @@ public class app {
 		final String MESSAGE_OPCAO_INVALIDA = "Opção não encontrada, favor inserir valor válido!";
 		
 		/* Listas onde serão salvas os registros */
-		List<Pessoa> listaPessoas = new ArrayList();
+		List<PessoaFisica> listaPessoaFisica = new ArrayList();
+		List<PessoaJurisdica> listaPessoaJurisdica = new ArrayList();
 		List<Veiculo> listaVeiculos = new ArrayList();
 		List<Locacao> listaLocacoes = new ArrayList();
 
@@ -49,19 +39,25 @@ public class app {
 		opcaoMenu = MenuService.menu();
 
 		do {
+			String tipoPessoa = PessoaService.verificarTipoPessoa();
 			switch (opcaoMenu) {
 			case OPTION_PESSOAS:
 				opcaoMenuSecundario = MenuService.getMenuPessoas();
 				switch(opcaoMenuSecundario) {
 				case 1:
-					PessoaService.cadastrarCliente(listaPessoas);
+					if(tipoPessoa.equals("1")){
+						PessoaService.cadastrarPessoaFisica(listaPessoaFisica);
+					} else {
+						PessoaService.cadastrarPessoaJurisdica(listaPessoaJurisdica);
+					}
+
 					JOptionPane.showMessageDialog(null , "Cliente cadastrado com sucesso!");
 					break;
 				case 2:
-					PessoaService.listarClientes(listaPessoas);
+					PessoaService.listarClientes(listaPessoaFisica);
 					break;
 				case 3:
-					PessoaService.removerClientePorCodigo(listaPessoas);
+					PessoaService.removerClientePorCodigo(listaPessoaFisica);
 					break;
 				case 4:
 					opcaoMenu = MenuService.menu();
@@ -102,7 +98,11 @@ public class app {
 				opcaoMenuSecundario = MenuService.getMenuLocacoes();
 				switch(opcaoMenuSecundario) {
 				case 1:
-					LocacaoService.cadastrarLocacao(listaLocacoes, listaPessoas, listaVeiculos);
+					if(tipoPessoa.equals("1")){
+						LocacaoService.cadastrarLocacao(listaLocacoes, listaPessoaFisica, listaVeiculos);
+					} else {
+						LocacaoService.cadastrarLocacaoPessoaJurisdica(listaLocacoes, listaPessoaJurisdica, listaVeiculos);
+					}
 					break;
 				case 2:
 					opcaoListagem = MenuService.getListagemLocacao();

@@ -6,14 +6,23 @@ import java.util.Date;
 public class Locacao {
 
 	private String codigo;
-	private Pessoa pessoa;
+	private PessoaFisica pessoaFisica;
+	private PessoaJurisdica pessoaJurisdica;
 	private Veiculo veiculo;
 	private LocalDate dataLocacao;
 	private Long valorLocacao;
 
-	public Locacao(String codigo, Pessoa pessoa, Veiculo veiculo, LocalDate dataLocacao, Long valorLocacao) {
+	public Locacao(String codigo, PessoaFisica pessoaFisica, Veiculo veiculo, LocalDate dataLocacao, Long valorLocacao) {
 		this.codigo = codigo;
-		this.pessoa = pessoa;
+		this.pessoaFisica = pessoaFisica;
+		this.veiculo = veiculo;
+		this.dataLocacao = dataLocacao;
+		this.valorLocacao = valorLocacao;
+	}
+
+	public Locacao(String codigo, PessoaJurisdica pessoaJurisdica, Veiculo veiculo, LocalDate dataLocacao, Long valorLocacao) {
+		this.codigo = codigo;
+		this.pessoaJurisdica = pessoaJurisdica;
 		this.veiculo = veiculo;
 		this.dataLocacao = dataLocacao;
 		this.valorLocacao = valorLocacao;
@@ -27,34 +36,42 @@ public class Locacao {
 		this.codigo = codigo;
 	}
 
-	public Pessoa getPessoa() {
-		return pessoa;
+	public PessoaFisica getPessoaFisica() {
+		return pessoaFisica;
 	}
-	
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
+
+	public void setPessoaFisica(PessoaFisica pessoaFisica) {
+		this.pessoaFisica = pessoaFisica;
 	}
-	
+
+	public PessoaJurisdica getPessoaJurisdica() {
+		return pessoaJurisdica;
+	}
+
+	public void setPessoaJurisdica(PessoaJurisdica pessoaJurisdica) {
+		this.pessoaJurisdica = pessoaJurisdica;
+	}
+
 	public Veiculo getVeiculo() {
 		return veiculo;
 	}
-	
+
 	public void setVeiculo(Veiculo veiculo) {
 		this.veiculo = veiculo;
 	}
-	
+
 	public LocalDate getDataLocacao() {
 		return dataLocacao;
 	}
-	
+
 	public void setDataLocacao(LocalDate dataLocacao) {
 		this.dataLocacao = dataLocacao;
 	}
-	
+
 	public Long getValorLocacao() {
 		return valorLocacao;
 	}
-	
+
 	public void setValorLocacao(Long valorLocacao) {
 		this.valorLocacao = valorLocacao;
 	}

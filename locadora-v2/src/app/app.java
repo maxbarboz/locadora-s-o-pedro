@@ -54,7 +54,7 @@ public class app {
 					JOptionPane.showMessageDialog(null , "Cliente cadastrado com sucesso!");
 					break;
 				case 2:
-					PessoaService.listarClientes(listaPessoaFisica);
+					PessoaService.listarClientes(listaPessoaFisica, listaPessoaJurisdica);
 					break;
 				case 3:
 					PessoaService.removerClientePorCodigo(listaPessoaFisica);

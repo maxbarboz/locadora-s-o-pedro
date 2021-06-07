@@ -35,117 +35,74 @@ public class app {
 		int opcaoMenu = 0;
 		int opcaoMenuSecundario = 0;
 		int opcaoListagem = 0;
-		String tipoPessoa = "";
-		
+
 		JOptionPane.showMessageDialog(null ,  MenuService.getMessageIntro());
 
 		opcaoMenu = MenuService.menu();
 
 		do {
-			if(opcaoMenu != 0){
-				tipoPessoa = PessoaService.verificarTipoPessoa();
-			}
 			switch (opcaoMenu) {
-			case OPTION_PESSOAS:
-				opcaoMenuSecundario = MenuService.getMenuPessoas();
-				switch(opcaoMenuSecundario) {
-				case 1:
-					if(tipoPessoa.equals("1")){
-						PessoaService.cadastrarPessoaFisica(listaPessoaFisica);
-					} else {
-						PessoaService.cadastrarPessoaJurisdica(listaPessoaJurisdica);
+				case OPTION_PESSOAS -> {
+					opcaoMenuSecundario = MenuService.getMenuPessoas();
+					switch (opcaoMenuSecundario) {
+						case 1 -> {
+							String tipoPessoa = PessoaService.verificarTipoPessoa();
+							if (tipoPessoa.equals("1")) {
+								PessoaService.cadastrarPessoaFisica(listaPessoaFisica);
+							} else {
+								PessoaService.cadastrarPessoaJurisdica(listaPessoaJurisdica);
+							}
+							JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
+						}
+						case 2 -> PessoaService.listarClientes(listaPessoaFisica, listaPessoaJurisdica);
+						case 3 -> PessoaService.removerClientePorCodigo(listaPessoaFisica);
+						case 4 -> opcaoMenu = MenuService.menu();
+						case 0 -> JOptionPane.showMessageDialog(null, MESSAGE_FINALIZADO_USUARIO);
+						default -> JOptionPane.showMessageDialog(null, MESSAGE_OPCAO_INVALIDA);
 					}
-
-					JOptionPane.showMessageDialog(null , "Cliente cadastrado com sucesso!");
-					break;
-				case 2:
-					PessoaService.listarClientes(listaPessoaFisica, listaPessoaJurisdica);
-					break;
-				case 3:
-					PessoaService.removerClientePorCodigo(listaPessoaFisica);
-					break;
-				case 4:
-					opcaoMenu = MenuService.menu();
-					break;
-				case 0:
-					JOptionPane.showMessageDialog(null , MESSAGE_FINALIZADO_USUARIO);
-					break;
-				default:
-					JOptionPane.showMessageDialog(null , MESSAGE_OPCAO_INVALIDA);
-					break;
 				}
-				break;
-			case OPTION_VEICULOS:
-				opcaoMenuSecundario = MenuService.getMenuVeiculos();
-				switch(opcaoMenuSecundario) {
-				case 1:
-					VeiculoService.cadastrarVeiculo(listaVeiculos);
-					JOptionPane.showMessageDialog(null , "Veiculo cadastrado com sucesso!");
-					break;
-				case 2:
-					VeiculoService.listarVeiculos(listaVeiculos);
-					break;
-				case 3:
-					VeiculoService.removerVeiculoPorPlaca(listaVeiculos);
-					break;
-				case 4:
-					opcaoMenu = MenuService.menu();
-					break;
-				case 0:
-					JOptionPane.showMessageDialog(null , MESSAGE_FINALIZADO_USUARIO);
-					break;
-				default:
-					JOptionPane.showMessageDialog(null , MESSAGE_OPCAO_INVALIDA);
-					break;
-				}
-				break;
-			case OPTION_LOCACOES:
-				opcaoMenuSecundario = MenuService.getMenuLocacoes();
-				switch(opcaoMenuSecundario) {
-				case 1:
-					if(tipoPessoa.equals("1")){
-						LocacaoService.cadastrarLocacao(listaLocacoes, listaPessoaFisica, listaVeiculos);
-					} else {
-						LocacaoService.cadastrarLocacaoPessoaJurisdica(listaLocacoes, listaPessoaJurisdica, listaVeiculos);
+				case OPTION_VEICULOS -> {
+					opcaoMenuSecundario = MenuService.getMenuVeiculos();
+					switch (opcaoMenuSecundario) {
+						case 1 -> {
+							VeiculoService.cadastrarVeiculo(listaVeiculos);
+							JOptionPane.showMessageDialog(null, "Veiculo cadastrado com sucesso!");
+						}
+						case 2 -> VeiculoService.listarVeiculos(listaVeiculos);
+						case 3 -> VeiculoService.removerVeiculoPorPlaca(listaVeiculos);
+						case 4 -> opcaoMenu = MenuService.menu();
+						case 0 -> JOptionPane.showMessageDialog(null, MESSAGE_FINALIZADO_USUARIO);
+						default -> JOptionPane.showMessageDialog(null, MESSAGE_OPCAO_INVALIDA);
 					}
-					break;
-				case 2:
-					opcaoListagem = MenuService.getListagemLocacao();
-					switch(opcaoListagem) {
-					case 1:
-						LocacaoService.listarLocacaoComFiltro(listaLocacoes);
-						break;
-					case 2:
-						LocacaoService.listarLocacaoSemFiltro(listaLocacoes);
-						break;
-					case 0:
-						JOptionPane.showMessageDialog(null , MESSAGE_FINALIZADO_USUARIO);
-						break;
-					default:
-						JOptionPane.showMessageDialog(null , MESSAGE_OPCAO_INVALIDA);
-						break;
-					}
-					break;
-				case 3:
-					LocacaoService.deletarLocacao(listaLocacoes);
-					break;
-				case 4:
-					opcaoMenu = MenuService.menu();
-					break;
-				case 0:
-					JOptionPane.showMessageDialog(null , MESSAGE_FINALIZADO_USUARIO);
-					break;
-				default:
-					JOptionPane.showMessageDialog(null , MESSAGE_OPCAO_INVALIDA);
-					break;
 				}
-				break;
-			case 0:
-				JOptionPane.showMessageDialog(null , MESSAGE_FINALIZADO_USUARIO);
-				break;
-			default:
-				JOptionPane.showMessageDialog(null , MESSAGE_OPCAO_INVALIDA);
-				break;
+				case OPTION_LOCACOES -> {
+					opcaoMenuSecundario = MenuService.getMenuLocacoes();
+					switch (opcaoMenuSecundario) {
+						case 1 -> {
+							String tipoPessoa = PessoaService.verificarTipoPessoa();
+							if (tipoPessoa.equals("1")) {
+								LocacaoService.cadastrarLocacao(listaLocacoes, listaPessoaFisica, listaVeiculos);
+							} else {
+								LocacaoService.cadastrarLocacaoPessoaJurisdica(listaLocacoes, listaPessoaJurisdica, listaVeiculos);
+							}
+						}
+						case 2 -> {
+							opcaoListagem = MenuService.getListagemLocacao();
+							switch (opcaoListagem) {
+								case 1 -> LocacaoService.listarLocacaoComFiltro(listaLocacoes);
+								case 2 -> LocacaoService.listarLocacaoSemFiltro(listaLocacoes);
+								case 0 -> JOptionPane.showMessageDialog(null, MESSAGE_FINALIZADO_USUARIO);
+								default -> JOptionPane.showMessageDialog(null, MESSAGE_OPCAO_INVALIDA);
+							}
+						}
+						case 3 -> LocacaoService.deletarLocacao(listaLocacoes);
+						case 4 -> opcaoMenu = MenuService.menu();
+						case 0 -> JOptionPane.showMessageDialog(null, MESSAGE_FINALIZADO_USUARIO);
+						default -> JOptionPane.showMessageDialog(null, MESSAGE_OPCAO_INVALIDA);
+					}
+				}
+				case 0 -> JOptionPane.showMessageDialog(null, MESSAGE_FINALIZADO_USUARIO);
+				default -> JOptionPane.showMessageDialog(null, MESSAGE_OPCAO_INVALIDA);
 			}
 		} while(opcaoMenu != 0 && opcaoMenuSecundario != 0);
 

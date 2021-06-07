@@ -1,14 +1,13 @@
 package services;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.swing.JOptionPane;
-
 import domain.Pessoa;
 import domain.PessoaFisica;
 import domain.PessoaJurisdica;
 import util.Scroll;
+
+import javax.swing.*;
+import java.util.List;
+import java.util.Optional;
 
 public class PessoaService {
 
@@ -99,7 +98,38 @@ public class PessoaService {
 	
 	public static void listarClientes(List<PessoaFisica> listaClientes, List<PessoaJurisdica> listaJurisdica) {
 		StringBuilder exibicao = new StringBuilder();
-		
+
+		String tipoListar = JOptionPane.showInputDialog(null,
+				"Deseja listar pessoa fisica(1). pessoa jurisdica(2), ou todos(0)");
+
+		if("1".equals(tipoListar)){
+			if(listaClientes.isEmpty()) {
+				exibicao.append("\nNão existe registro para a listagem de pessoa fisica");
+			}
+			listarPessoaFisica(exibicao, listaClientes);
+		}
+		if("2".equals(tipoListar)){
+			if(listaJurisdica.isEmpty()) {
+				exibicao.append("\nNão existe registro para a listagem de pessoa jurisdica");
+			}
+			listarPessoaJurisdica(exibicao, listaJurisdica);
+		}
+		if("0".equals(tipoListar)){
+			if(listaClientes.isEmpty()) {
+				exibicao.append("\nNão existe registro para a listagem de pessoa fisica");
+			}
+			if(listaJurisdica.isEmpty()) {
+				exibicao.append("\nNão existe registro para a listagem de pessoa jurisdica");
+			}
+			listarPessoaFisica(exibicao, listaClientes);
+			listarPessoaJurisdica(exibicao, listaJurisdica);
+		}
+
+		Scroll scroll = new Scroll(exibicao.toString(), "LISTAGEM DE CLIENTES:");
+		exibicao = new StringBuilder();
+	}
+
+	public static String listarPessoaFisica(StringBuilder exibicao, List<PessoaFisica> listaClientes){
 		if(listaClientes.isEmpty()) {
 			exibicao.append("\nNão existe registro para a listagem de pessoa fisica");
 		} else {
@@ -112,6 +142,10 @@ public class PessoaService {
 			});
 		}
 
+		return exibicao.toString();
+	}
+
+	public static String listarPessoaJurisdica(StringBuilder exibicao, List<PessoaJurisdica> listaJurisdica){
 		if(listaJurisdica.isEmpty()) {
 			exibicao.append("\nNão existe registro para a listagem de pessoa jurisdica");
 		} else {
@@ -122,8 +156,8 @@ public class PessoaService {
 						.append("Cnpj: " + pessoa.getCnpj()).append("\n\n");
 			});
 		}
-		
-		Scroll scroll = new Scroll(exibicao.toString(), "LISTAGEM DE CLIENTES:");
+
+		return exibicao.toString();
 	}
 	
 	public static void removerClientePorCodigo(List<PessoaFisica> listaClientes) {

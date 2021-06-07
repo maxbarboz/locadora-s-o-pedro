@@ -1,14 +1,16 @@
 package services;
 
+import domain.Locacao;
+import domain.PessoaFisica;
+import domain.PessoaJurisdica;
+import domain.Veiculo;
+import util.Scroll;
+
+import javax.swing.JOptionPane;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import javax.swing.JOptionPane;
-
-import domain.*;
-import util.Scroll;
 
 public class LocacaoService {
 

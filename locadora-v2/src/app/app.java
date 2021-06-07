@@ -1,15 +1,17 @@
 package app;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JOptionPane;
-
-import domain.*;
+import domain.Locacao;
+import domain.PessoaFisica;
+import domain.PessoaJurisdica;
+import domain.Veiculo;
 import services.LocacaoService;
 import services.MenuService;
 import services.PessoaService;
 import services.VeiculoService;
+
+import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.List;
 
 public class app {
 

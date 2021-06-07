@@ -5,7 +5,7 @@ import domain.PessoaFisica;
 import domain.PessoaJurisdica;
 import util.Scroll;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.util.List;
 import java.util.Optional;
 

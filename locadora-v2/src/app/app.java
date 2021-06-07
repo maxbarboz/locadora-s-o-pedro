@@ -35,13 +35,16 @@ public class app {
 		int opcaoMenu = 0;
 		int opcaoMenuSecundario = 0;
 		int opcaoListagem = 0;
+		String tipoPessoa = "";
 		
 		JOptionPane.showMessageDialog(null ,  MenuService.getMessageIntro());
 
 		opcaoMenu = MenuService.menu();
 
 		do {
-			String tipoPessoa = PessoaService.verificarTipoPessoa();
+			if(opcaoMenu != 0){
+				tipoPessoa = PessoaService.verificarTipoPessoa();
+			}
 			switch (opcaoMenu) {
 			case OPTION_PESSOAS:
 				opcaoMenuSecundario = MenuService.getMenuPessoas();

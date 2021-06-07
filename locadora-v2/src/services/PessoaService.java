@@ -58,7 +58,7 @@ public class PessoaService {
 	public static List cadastrarPessoaJurisdica(List listaClientes) {
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código de registro:");
 		String razaoSocial = JOptionPane.showInputDialog(null, "Informe o nome:");
-		String cnpj = JOptionPane.showInputDialog(null, "Informe o CPF:");
+			String cnpj = JOptionPane.showInputDialog(null, "Informe o CNOJ:");
 		String localidade = JOptionPane.showInputDialog(null, "Informe a localidade: \n\nobs.: Localidade é opcional");
 
 		if(verificaCodigoPessoa(listaClientes, codigo)) {
@@ -67,7 +67,7 @@ public class PessoaService {
 		}
 
 		if(!verificacnpj(cnpj)) {
-			JOptionPane.showMessageDialog(null , "Favor informar um CPF válido (COM 11 DIGITOS):");
+			JOptionPane.showMessageDialog(null , "Favor informar um CNPJ válido (COM 14 DIGITOS):");
 			return cadastrarPessoaJurisdica(listaClientes);
 		}
 

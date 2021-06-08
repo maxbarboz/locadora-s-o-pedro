@@ -2,10 +2,9 @@ package services;
 
 import domain.Locacao;
 import domain.PessoaFisica;
-import domain.PessoaJurisdica;
+import domain.PessoaJuridica;
 import domain.Veiculo;
 import interfaces.LocacaoInterface;
-import interfaces.VeiculoInterface;
 import util.Scroll;
 
 import javax.swing.JOptionPane;
@@ -29,7 +28,7 @@ public class LocacaoService implements LocacaoInterface {
 			locacoesFlitradas = locacoes.stream().filter(item ->
 					item.getPessoaFisica() != null ?
 							item.getPessoaFisica().getNome().equalsIgnoreCase(filtroPessoa) :
-							item.getPessoaJurisdica().getRazaoSocial().equalsIgnoreCase(filtroPessoa) ||
+							item.getPessoajuridica().getRazaoSocial().equalsIgnoreCase(filtroPessoa) ||
 					item.getVeiculo().getPlaca().equalsIgnoreCase(filtroVeiculo)).collect(Collectors.toList());
 		}
 
@@ -40,7 +39,7 @@ public class LocacaoService implements LocacaoInterface {
 		} else {
 			locacoesFlitradas.forEach(locacao -> {
 				exibicao.append("Código: " + locacao.getCodigo()).append("\n")
-						.append("Nome: " + locacao.getPessoaJurisdica() == null ? locacao.getPessoaFisica().getNome() : locacao.getPessoaJurisdica().getRazaoSocial()).append("\n")
+						.append("Nome: " + locacao.getPessoajuridica() == null ? locacao.getPessoaFisica().getNome() : locacao.getPessoajuridica().getRazaoSocial()).append("\n")
 						.append("Nome do Veículo: " + locacao.getVeiculo().getNomeVeiculo()).append("\n")
 						.append("Placa: " + locacao.getVeiculo().getPlaca()).append("\n")
 						.append("Data Locação: " + locacao.getDataLocacao().toString()).append("\n\n");
@@ -60,7 +59,7 @@ public class LocacaoService implements LocacaoInterface {
 		} else {
 			locacoes.forEach(locacao -> {
 				exibicao.append("Código: " + locacao.getCodigo()).append("\n")
-						.append("Nome: " + locacao.getPessoaFisica() != null ? locacao.getPessoaFisica().getNome() : locacao.getPessoaJurisdica().getRazaoSocial()).append("\n")
+						.append("Nome: " + locacao.getPessoaFisica() != null ? locacao.getPessoaFisica().getNome() : locacao.getPessoajuridica().getRazaoSocial()).append("\n")
 						.append("Nome do Veículo: " + locacao.getVeiculo().getNomeVeiculo()).append("\n")
 						.append("Placa: " + locacao.getVeiculo().getPlaca()).append("\n")
 						.append("Data Locação: " + locacao.getDataLocacao().toString()).append("\n\n");
@@ -110,7 +109,7 @@ public class LocacaoService implements LocacaoInterface {
 	}
 
 	@Override
-	public  List cadastrarLocacaoPessoaJurisdica(List<Locacao> locacoes, List<PessoaJurisdica> pessoas, List<Veiculo> veiculos){
+	public  List cadastrarLocacaoPessoaJuridica(List<Locacao> locacoes, List<PessoaJuridica> pessoas, List<Veiculo> veiculos){
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código de registro:");
 		String codigoPessoa = JOptionPane.showInputDialog(null, "Informe o codigo da Pessoa:");
 		String placaVeiculo =  JOptionPane.showInputDialog(null, "Informe a placa do Veículo:");
@@ -120,10 +119,10 @@ public class LocacaoService implements LocacaoInterface {
 
 		if(verificaCodigoLocacao(locacoes, codigo)) {
 			JOptionPane.showMessageDialog(null , "Código já utilizado, favor informar outro!");
-			return cadastrarLocacaoPessoaJurisdica(locacoes, pessoas, veiculos);
+			return cadastrarLocacaoPessoaJuridica(locacoes, pessoas, veiculos);
 		}
 
-		Optional<PessoaJurisdica> pessoaOptional = buscarPessoaJurisdicaPorCodigo(codigoPessoa, pessoas);
+		Optional<PessoaJuridica> pessoaOptional = buscarPessoajuridicaPorCodigo(codigoPessoa, pessoas);
 
 		if(pessoaOptional.isEmpty()){
 			JOptionPane.showMessageDialog(null , "Pessoa não encontrada nos registros, favor consultar código na listagem!");
@@ -139,7 +138,7 @@ public class LocacaoService implements LocacaoInterface {
 
 		if(codigo.isEmpty() || codigoPessoa.isEmpty() || placaVeiculo.isEmpty()){
 			JOptionPane.showMessageDialog(null , "Favor preencher todos os dados obrigatórios!");
-			return cadastrarLocacaoPessoaJurisdica(locacoes, pessoas, veiculos);
+			return cadastrarLocacaoPessoaJuridica(locacoes, pessoas, veiculos);
 		}
 
 		locacoes.add(new Locacao(codigo, pessoaOptional.get(), optionalVeiculo.get(), dataAtual, valor));
@@ -156,7 +155,7 @@ public class LocacaoService implements LocacaoInterface {
 		return listaClientes.stream().filter(entidade -> entidade.getCodigo().equals(codigo)).findFirst();
 	}
 
-	public static Optional<PessoaJurisdica> buscarPessoaJurisdicaPorCodigo(String codigo, List<PessoaJurisdica> listaClientes){
+	public static Optional<PessoaJuridica> buscarPessoajuridicaPorCodigo(String codigo, List<PessoaJuridica> listaClientes){
 		return listaClientes.stream().filter(entidade -> entidade.getCodigo().equals(codigo)).findFirst();
 	}
 	

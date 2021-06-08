@@ -6,7 +6,7 @@ public class Locacao {
 
 	private String codigo;
 	private PessoaFisica pessoaFisica;
-	private PessoaJurisdica pessoaJurisdica;
+	private PessoaJuridica pessoaJuridica;
 	private Veiculo veiculo;
 	private LocalDate dataLocacao;
 	private Long valorLocacao;
@@ -19,9 +19,9 @@ public class Locacao {
 		this.valorLocacao = valorLocacao;
 	}
 
-	public Locacao(String codigo, PessoaJurisdica pessoaJurisdica, Veiculo veiculo, LocalDate dataLocacao, Long valorLocacao) {
+	public Locacao(String codigo, PessoaJuridica pessoaJuridica, Veiculo veiculo, LocalDate dataLocacao, Long valorLocacao) {
 		this.codigo = codigo;
-		this.pessoaJurisdica = pessoaJurisdica;
+		this.pessoaJuridica = pessoaJuridica;
 		this.veiculo = veiculo;
 		this.dataLocacao = dataLocacao;
 		this.valorLocacao = valorLocacao;
@@ -43,12 +43,12 @@ public class Locacao {
 		this.pessoaFisica = pessoaFisica;
 	}
 
-	public PessoaJurisdica getPessoaJurisdica() {
-		return pessoaJurisdica;
+	public PessoaJuridica getPessoajuridica() {
+		return pessoaJuridica;
 	}
 
-	public void setPessoaJurisdica(PessoaJurisdica pessoaJurisdica) {
-		this.pessoaJurisdica = pessoaJurisdica;
+	public void setPessoajuridica(PessoaJuridica pessoaJuridica) {
+		this.pessoaJuridica = pessoaJuridica;
 	}
 
 	public Veiculo getVeiculo() {

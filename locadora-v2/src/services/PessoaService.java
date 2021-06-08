@@ -1,7 +1,7 @@
 package services;
 
 import domain.PessoaFisica;
-import domain.PessoaJurisdica;
+import domain.PessoaJuridica;
 import interfaces.PessoaInterface;
 import util.Scroll;
 
@@ -14,7 +14,7 @@ public class PessoaService implements PessoaInterface {
 	@Override
 	public String verificarTipoPessoa(){
 		String tipoPessoa = JOptionPane.showInputDialog(null,
-				"Informe se voçê a uma pessoa fisica (1) ou pessoa jurisdica (2)");
+				"Informe se voçê a uma pessoa fisica (1) ou pessoa juridica (2)");
 
 		if(!tipoPessoa.equals("1") && !tipoPessoa.equals("2")){
 			tipoPessoa = verificarTipoPessoa();
@@ -57,7 +57,7 @@ public class PessoaService implements PessoaInterface {
 	}
 
 	@Override
-	public List cadastrarPessoaJurisdica(List listaClientes) {
+	public List cadastrarPessoaJuridica(List listaClientes) {
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código de registro:");
 		String razaoSocial = JOptionPane.showInputDialog(null, "Informe o nome:");
 		String cnpj = JOptionPane.showInputDialog(null, "Informe o CNPJ:");
@@ -65,20 +65,20 @@ public class PessoaService implements PessoaInterface {
 
 		if(verificaCodigoPessoa(listaClientes, codigo)) {
 			JOptionPane.showMessageDialog(null , "Código já utilizado, favor informar outro!");
-			return cadastrarPessoaJurisdica(listaClientes);
+			return cadastrarPessoaJuridica(listaClientes);
 		}
 
 		if(!verificacnpj(cnpj)) {
 			JOptionPane.showMessageDialog(null , "Favor informar um CNPJ válido (COM 14 DIGITOS):");
-			return cadastrarPessoaJurisdica(listaClientes);
+			return cadastrarPessoaJuridica(listaClientes);
 		}
 
 		if(codigo.isEmpty() || razaoSocial.isEmpty() || cnpj.isEmpty()) {
 			JOptionPane.showMessageDialog(null , "Favor preencher todos os dados obrigatórios!");
-			return cadastrarPessoaJurisdica(listaClientes);
+			return cadastrarPessoaJuridica(listaClientes);
 		}
 
-		listaClientes.add(localidade.isEmpty() ? new PessoaJurisdica(codigo, cnpj, razaoSocial) : new PessoaJurisdica(codigo, localidade, cnpj, razaoSocial));
+		listaClientes.add(localidade.isEmpty() ? new PessoaJuridica(codigo, cnpj, razaoSocial) : new PessoaJuridica(codigo, localidade, cnpj, razaoSocial));
 
 		return listaClientes;
 	}
@@ -92,11 +92,11 @@ public class PessoaService implements PessoaInterface {
 	}
 	
 	@Override
-	public void listarClientes(List<PessoaFisica> listaClientes, List<PessoaJurisdica> listaJurisdica) {
+	public void listarClientes(List<PessoaFisica> listaClientes, List<PessoaJuridica> listajuridica) {
 		StringBuilder exibicao = new StringBuilder();
 
 		String tipoListar = JOptionPane.showInputDialog(null,
-				"Deseja listar pessoa fisica(1). pessoa jurisdica(2), ou todos(0)");
+				"Deseja listar pessoa fisica(1). pessoa juridica(2), ou todos(0)");
 
 		if("1".equals(tipoListar)){
 			if(listaClientes.isEmpty()) {
@@ -105,14 +105,14 @@ public class PessoaService implements PessoaInterface {
 			listarPessoaFisica(exibicao, listaClientes);
 		}
 		if("2".equals(tipoListar)){
-			if(listaJurisdica.isEmpty()) {
-				exibicao.append("\nNão existe registro para a listagem de pessoa jurisdica");
+			if(listajuridica.isEmpty()) {
+				exibicao.append("\nNão existe registro para a listagem de pessoa juridica");
 			}
-			listarPessoaJurisdica(exibicao, listaJurisdica);
+			listarPessoajuridica(exibicao, listajuridica);
 		}
 		if("0".equals(tipoListar)){
 			listarPessoaFisica(exibicao, listaClientes);
-			listarPessoaJurisdica(exibicao, listaJurisdica);
+			listarPessoajuridica(exibicao, listajuridica);
 		}
 
 		Scroll scroll = new Scroll(exibicao.toString(), "LISTAGEM DE CLIENTES:");
@@ -135,11 +135,11 @@ public class PessoaService implements PessoaInterface {
 		return exibicao.toString();
 	}
 
-	public static String listarPessoaJurisdica(StringBuilder exibicao, List<PessoaJurisdica> listaJurisdica){
-		if(listaJurisdica.isEmpty()) {
-			exibicao.append("\nNão existe registro para a listagem de pessoa jurisdica");
+	public static String listarPessoajuridica(StringBuilder exibicao, List<PessoaJuridica> listajuridica){
+		if(listajuridica.isEmpty()) {
+			exibicao.append("\nNão existe registro para a listagem de pessoa juridica");
 		} else {
-			listaJurisdica.forEach(pessoa -> {
+			listajuridica.forEach(pessoa -> {
 				exibicao.append("Código: " + pessoa.getCodigo()).append("\n")
 						.append("Nome: " + pessoa.getRazaoSocial()).append("\n")
 						.append("Localidade: " + pessoa.getLocalidade()).append("\n")
@@ -151,20 +151,20 @@ public class PessoaService implements PessoaInterface {
 	}
 	
 	@Override
-	public void removerClientePorCodigo(List<PessoaFisica> listaClientes, List<PessoaJurisdica> listaJurisdica) {
+	public void removerClientePorCodigo(List<PessoaFisica> listaClientes, List<PessoaJuridica> listajuridica) {
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código do cliente a ser removido:");
 		
 		Optional<PessoaFisica> pessoa = buscarPessoaFisicaPorCodigo(codigo, listaClientes);
-		Optional<PessoaJurisdica> pessoaJurisdica = buscarPessoaJurisdicaPorCodigo(codigo, listaJurisdica);
+		Optional<PessoaJuridica> pessoaJuridica = buscarPessoaJuridicaPorCodigo(codigo, listajuridica);
 
 		if(pessoa.isPresent()) {
 			int indexPessoa = listaClientes.indexOf(pessoa.get());
 			listaClientes.remove(indexPessoa);
 			
 			JOptionPane.showMessageDialog(null , "Cliente removido com sucesso!");
-		} else if (pessoaJurisdica.isPresent()){
-			int indexPessoa = listaJurisdica.indexOf(pessoaJurisdica.get());
-			listaJurisdica.remove(indexPessoa);
+		} else if (pessoaJuridica.isPresent()){
+			int indexPessoa = listajuridica.indexOf(pessoaJuridica.get());
+			listajuridica.remove(indexPessoa);
 
 			JOptionPane.showMessageDialog(null , "Cliente removido com sucesso!");
 		} else {
@@ -176,7 +176,7 @@ public class PessoaService implements PessoaInterface {
 		return listaClientes.stream().filter(entidade -> entidade.getCodigo().equals(codigo)).findFirst();
 	}
 
-	public static Optional<PessoaJurisdica> buscarPessoaJurisdicaPorCodigo(String codigo, List<PessoaJurisdica> listaClientes){
+	public static Optional<PessoaJuridica> buscarPessoaJuridicaPorCodigo(String codigo, List<PessoaJuridica> listaClientes){
 		return listaClientes.stream().filter(entidade -> entidade.getCodigo().equals(codigo)).findFirst();
 	}
 	

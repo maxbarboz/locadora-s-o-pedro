@@ -1,17 +1,17 @@
 package domain;
 
-public class PessoaJurisdica extends Pessoa {
+public class PessoaJuridica extends Pessoa {
 
     private String cnpj;
     private String razaoSocial;
 
-    public PessoaJurisdica(String codigo, String localidade, String cnpj, String razaoSocial) {
+    public PessoaJuridica(String codigo, String localidade, String cnpj, String razaoSocial) {
         super(codigo, localidade);
         this.cnpj = cnpj;
         this.razaoSocial = razaoSocial;
     }
 
-    public PessoaJurisdica(String codigo, String cnpj, String razaoSocial) {
+    public PessoaJuridica(String codigo, String cnpj, String razaoSocial) {
         super(codigo);
         this.cnpj = cnpj;
         this.razaoSocial = razaoSocial;

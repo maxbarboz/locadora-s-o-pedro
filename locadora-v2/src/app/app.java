@@ -2,7 +2,7 @@ package app;
 
 import domain.Locacao;
 import domain.PessoaFisica;
-import domain.PessoaJurisdica;
+import domain.PessoaJuridica;
 import domain.Veiculo;
 import services.LocacaoService;
 import services.MenuService;
@@ -33,7 +33,7 @@ public class app {
 		
 		/* Listas onde serão salvas os registros */
 		List<PessoaFisica> listaPessoaFisica = new ArrayList();
-		List<PessoaJurisdica> listaPessoaJurisdica = new ArrayList();
+		List<PessoaJuridica> listaPessoaJuridica = new ArrayList();
 		List<Veiculo> listaVeiculos = new ArrayList();
 		List<Locacao> listaLocacoes = new ArrayList();
 
@@ -55,16 +55,16 @@ public class app {
 					if(tipoPessoa.equals("1")){
 						pessoaService.cadastrarPessoaFisica(listaPessoaFisica);
 					} else {
-						pessoaService.cadastrarPessoaJurisdica(listaPessoaJurisdica);
+						pessoaService.cadastrarPessoaJuridica(listaPessoaJuridica);
 					}
 
 					JOptionPane.showMessageDialog(null , "Cliente cadastrado com sucesso!");
 					break;
 				case 2:
-					pessoaService.listarClientes(listaPessoaFisica, listaPessoaJurisdica);
+					pessoaService.listarClientes(listaPessoaFisica, listaPessoaJuridica);
 					break;
 				case 3:
-					pessoaService.removerClientePorCodigo(listaPessoaFisica, listaPessoaJurisdica);
+					pessoaService.removerClientePorCodigo(listaPessoaFisica, listaPessoaJuridica);
 					break;
 				case 4:
 					opcaoMenu = MenuService.menu();
@@ -109,7 +109,7 @@ public class app {
 					if(tipoPessoa.equals("1")){
 						locacaoService.cadastrarLocacao(listaLocacoes, listaPessoaFisica, listaVeiculos);
 					} else {
-						locacaoService.cadastrarLocacaoPessoaJurisdica(listaLocacoes, listaPessoaJurisdica, listaVeiculos);
+						locacaoService.cadastrarLocacaoPessoaJuridica(listaLocacoes, listaPessoaJuridica, listaVeiculos);
 					}
 					break;
 				case 2:

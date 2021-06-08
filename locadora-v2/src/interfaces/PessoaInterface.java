@@ -1,18 +1,10 @@
 package interfaces;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.swing.JOptionPane;
-
-import domain.Locacao;
 import domain.Pessoa;
 import domain.PessoaFisica;
 import domain.PessoaJurisdica;
-import domain.Veiculo;
-import util.Scroll;
+
+import java.util.List;
 
 public interface PessoaInterface {
 	
@@ -24,7 +16,7 @@ public interface PessoaInterface {
 	
 	void listarClientes(List<PessoaFisica> listaClientes, List<PessoaJurisdica> listaJurisdica);
 	
-	void removerClientePorCodigo(List<PessoaFisica> listaClientes);
+	void removerClientePorCodigo(List<PessoaFisica> listaClientes, List<PessoaJurisdica> listJurisdica);
 	
 	default boolean verificaCodigoPessoa(List<Pessoa> listaClientes, String codigo) {
 		return listaClientes.stream().anyMatch(entidade -> entidade.getCodigo().equals(codigo));

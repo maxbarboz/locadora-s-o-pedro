@@ -4,15 +4,12 @@ import domain.Locacao;
 import domain.PessoaFisica;
 import domain.PessoaJurisdica;
 import domain.Veiculo;
-import interfaces.LocacaoInterface;
-import interfaces.PessoaInterface;
-import interfaces.VeiculoInterface;
 import services.LocacaoService;
 import services.MenuService;
 import services.PessoaService;
 import services.VeiculoService;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +64,7 @@ public class app {
 					pessoaService.listarClientes(listaPessoaFisica, listaPessoaJurisdica);
 					break;
 				case 3:
-					pessoaService.removerClientePorCodigo(listaPessoaFisica);
+					pessoaService.removerClientePorCodigo(listaPessoaFisica, listaPessoaJurisdica);
 					break;
 				case 4:
 					opcaoMenu = MenuService.menu();

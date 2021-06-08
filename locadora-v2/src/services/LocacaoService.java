@@ -163,8 +163,13 @@ public class LocacaoService implements LocacaoInterface {
 	@Override
 	public void deletarLocacao(List<Locacao> locacoes){
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código da locação a ser removido:");
+		if(verificaCodigoLocacao(locacoes, codigo)) {
+			locacoes.removeIf(item -> item.getCodigo().equals(codigo));
+			JOptionPane.showMessageDialog(null , "Registro Locação removido com sucesso!");
+		} else {
+			JOptionPane.showMessageDialog(null , "Registro não encontrado!");
+		}
 
-		locacoes.removeIf(item -> item.getCodigo().equals(codigo));
 	}
 	
 	public static boolean verificaCodigoLocacao(List<Locacao> listaLocacoes, String codigo) {

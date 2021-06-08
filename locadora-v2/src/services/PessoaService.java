@@ -60,7 +60,7 @@ public class PessoaService implements PessoaInterface {
 	public List cadastrarPessoaJurisdica(List listaClientes) {
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código de registro:");
 		String razaoSocial = JOptionPane.showInputDialog(null, "Informe o nome:");
-		String cnpj = JOptionPane.showInputDialog(null, "Informe o CNOJ:");
+		String cnpj = JOptionPane.showInputDialog(null, "Informe o CNPJ:");
 		String localidade = JOptionPane.showInputDialog(null, "Informe a localidade: \n\nobs.: Localidade é opcional");
 
 		if(verificaCodigoPessoa(listaClientes, codigo)) {
@@ -111,12 +111,6 @@ public class PessoaService implements PessoaInterface {
 			listarPessoaJurisdica(exibicao, listaJurisdica);
 		}
 		if("0".equals(tipoListar)){
-			if(listaClientes.isEmpty()) {
-				exibicao.append("\nNão existe registro para a listagem de pessoa fisica");
-			}
-			if(listaJurisdica.isEmpty()) {
-				exibicao.append("\nNão existe registro para a listagem de pessoa jurisdica");
-			}
 			listarPessoaFisica(exibicao, listaClientes);
 			listarPessoaJurisdica(exibicao, listaJurisdica);
 		}

@@ -13,7 +13,7 @@ public class VeiculoService implements VeiculoInterface {
 
 	@Override
 	public List cadastrarVeiculo(List listaVeiculos) {
-		String placa = JOptionPane.showInputDialog(null, "Informe o placa do veículo:");
+		String placa = JOptionPane.showInputDialog(null, "Informe a placa do veículo:");
 		String marca = JOptionPane.showInputDialog(null, "Informe a marca:");
 		String nomeVeiculo =  JOptionPane.showInputDialog(null, "Informe o nome do veículo:");
 

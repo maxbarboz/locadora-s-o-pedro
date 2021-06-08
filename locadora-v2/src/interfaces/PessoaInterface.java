@@ -2,7 +2,7 @@ package interfaces;
 
 import domain.Pessoa;
 import domain.PessoaFisica;
-import domain.PessoaJurisdica;
+import domain.PessoaJuridica;
 
 import java.util.List;
 
@@ -12,11 +12,11 @@ public interface PessoaInterface {
 
 	List cadastrarPessoaFisica(List listaClientes);
 
-	List cadastrarPessoaJurisdica(List listaClientes);
+	List cadastrarPessoaJuridica(List listaClientes);
 	
-	void listarClientes(List<PessoaFisica> listaClientes, List<PessoaJurisdica> listaJurisdica);
+	void listarClientes(List<PessoaFisica> listaClientes, List<PessoaJuridica> listaJuridica);
 	
-	void removerClientePorCodigo(List<PessoaFisica> listaClientes, List<PessoaJurisdica> listJurisdica);
+	void removerClientePorCodigo(List<PessoaFisica> listaClientes, List<PessoaJuridica> listJuridica);
 	
 	/**
      * Método default que verifica o código de pessoa tanto para 

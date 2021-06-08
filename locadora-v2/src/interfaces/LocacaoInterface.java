@@ -1,17 +1,11 @@
 package interfaces;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.swing.JOptionPane;
 
 import domain.Locacao;
 import domain.PessoaFisica;
-import domain.PessoaJurisdica;
+import domain.PessoaJuridica;
 import domain.Veiculo;
-import util.Scroll;
 
 public interface LocacaoInterface {
 	
@@ -21,7 +15,7 @@ public interface LocacaoInterface {
 	
 	List cadastrarLocacao(List<Locacao> locacoes, List<PessoaFisica> pessoas, List<Veiculo> veiculos);
 
-	List cadastrarLocacaoPessoaJurisdica(List<Locacao> locacoes, List<PessoaJurisdica> pessoas, List<Veiculo> veiculos);
+	List cadastrarLocacaoPessoaJuridica(List<Locacao> locacoes, List<PessoaJuridica> pessoas, List<Veiculo> veiculos);
 	
 	void deletarLocacao(List<Locacao> locacoes);
 	

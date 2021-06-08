@@ -4,6 +4,9 @@ import domain.Locacao;
 import domain.PessoaFisica;
 import domain.PessoaJurisdica;
 import domain.Veiculo;
+import interfaces.LocacaoInterface;
+import interfaces.PessoaInterface;
+import interfaces.VeiculoInterface;
 import services.LocacaoService;
 import services.MenuService;
 import services.PessoaService;
@@ -14,9 +17,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class app {
-
+	
 	public static void main(String[] args) {
-
+		
+		/* Service */
+		PessoaService pessoaService = new PessoaService();
+		VeiculoService veiculoService = new VeiculoService();
+		LocacaoService locacaoService = new LocacaoService();
+		
 		/* Opções do menu principal */
 		final int OPTION_PESSOAS = 1;
 		final int OPTION_VEICULOS = 2;
@@ -46,20 +54,20 @@ public class app {
 				opcaoMenuSecundario = MenuService.getMenuPessoas();
 				switch(opcaoMenuSecundario) {
 				case 1:
-					String tipoPessoa = PessoaService.verificarTipoPessoa();
+					String tipoPessoa = pessoaService.verificarTipoPessoa();
 					if(tipoPessoa.equals("1")){
-						PessoaService.cadastrarPessoaFisica(listaPessoaFisica);
+						pessoaService.cadastrarPessoaFisica(listaPessoaFisica);
 					} else {
-						PessoaService.cadastrarPessoaJurisdica(listaPessoaJurisdica);
+						pessoaService.cadastrarPessoaJurisdica(listaPessoaJurisdica);
 					}
 
 					JOptionPane.showMessageDialog(null , "Cliente cadastrado com sucesso!");
 					break;
 				case 2:
-					PessoaService.listarClientes(listaPessoaFisica, listaPessoaJurisdica);
+					pessoaService.listarClientes(listaPessoaFisica, listaPessoaJurisdica);
 					break;
 				case 3:
-					PessoaService.removerClientePorCodigo(listaPessoaFisica);
+					pessoaService.removerClientePorCodigo(listaPessoaFisica);
 					break;
 				case 4:
 					opcaoMenu = MenuService.menu();
@@ -76,14 +84,14 @@ public class app {
 				opcaoMenuSecundario = MenuService.getMenuVeiculos();
 				switch(opcaoMenuSecundario) {
 				case 1:
-					VeiculoService.cadastrarVeiculo(listaVeiculos);
+					veiculoService.cadastrarVeiculo(listaVeiculos);
 					JOptionPane.showMessageDialog(null , "Veiculo cadastrado com sucesso!");
 					break;
 				case 2:
-					VeiculoService.listarVeiculos(listaVeiculos);
+					veiculoService.listarVeiculos(listaVeiculos);
 					break;
 				case 3:
-					VeiculoService.removerVeiculoPorPlaca(listaVeiculos);
+					veiculoService.removerVeiculoPorPlaca(listaVeiculos);
 					break;
 				case 4:
 					opcaoMenu = MenuService.menu();
@@ -100,21 +108,21 @@ public class app {
 				opcaoMenuSecundario = MenuService.getMenuLocacoes();
 				switch(opcaoMenuSecundario) {
 				case 1:
-					String tipoPessoa = PessoaService.verificarTipoPessoa();
+					String tipoPessoa = pessoaService.verificarTipoPessoa();
 					if(tipoPessoa.equals("1")){
-						LocacaoService.cadastrarLocacao(listaLocacoes, listaPessoaFisica, listaVeiculos);
+						locacaoService.cadastrarLocacao(listaLocacoes, listaPessoaFisica, listaVeiculos);
 					} else {
-						LocacaoService.cadastrarLocacaoPessoaJurisdica(listaLocacoes, listaPessoaJurisdica, listaVeiculos);
+						locacaoService.cadastrarLocacaoPessoaJurisdica(listaLocacoes, listaPessoaJurisdica, listaVeiculos);
 					}
 					break;
 				case 2:
 					opcaoListagem = MenuService.getListagemLocacao();
 					switch(opcaoListagem) {
 					case 1:
-						LocacaoService.listarLocacaoComFiltro(listaLocacoes);
+						locacaoService.listarLocacaoComFiltro(listaLocacoes);
 						break;
 					case 2:
-						LocacaoService.listarLocacaoSemFiltro(listaLocacoes);
+						locacaoService.listarLocacaoSemFiltro(listaLocacoes);
 						break;
 					case 0:
 						JOptionPane.showMessageDialog(null , MESSAGE_FINALIZADO_USUARIO);
@@ -125,7 +133,7 @@ public class app {
 					}
 					break;
 				case 3:
-					LocacaoService.deletarLocacao(listaLocacoes);
+					locacaoService.deletarLocacao(listaLocacoes);
 					break;
 				case 4:
 					opcaoMenu = MenuService.menu();

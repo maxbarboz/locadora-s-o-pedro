@@ -3,15 +3,17 @@ package services;
 import domain.Pessoa;
 import domain.PessoaFisica;
 import domain.PessoaJurisdica;
+import interfaces.PessoaInterface;
 import util.Scroll;
 
 import javax.swing.JOptionPane;
 import java.util.List;
 import java.util.Optional;
 
-public class PessoaService {
+public class PessoaService implements PessoaInterface {
 
-	public static String verificarTipoPessoa(){
+	@Override
+	public String verificarTipoPessoa(){
 		String tipoPessoa = JOptionPane.showInputDialog(null,
 				"Informe se voçê a uma pessoa fisica (1) ou pessoa jurisdica (2)");
 
@@ -22,7 +24,8 @@ public class PessoaService {
 		return tipoPessoa;
 	}
 
-	public static List cadastrarPessoaFisica(List listaClientes) {
+	@Override
+	public List cadastrarPessoaFisica(List listaClientes) {
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código de registro:");
 		String nome = JOptionPane.showInputDialog(null, "Informe o nome:");
 		String sexo =  JOptionPane.showInputDialog(null, "Informe o sexo (M - Masculino e F - Feminino):");
@@ -54,10 +57,11 @@ public class PessoaService {
 		return listaClientes;
 	}
 
-	public static List cadastrarPessoaJurisdica(List listaClientes) {
+	@Override
+	public List cadastrarPessoaJurisdica(List listaClientes) {
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código de registro:");
 		String razaoSocial = JOptionPane.showInputDialog(null, "Informe o nome:");
-			String cnpj = JOptionPane.showInputDialog(null, "Informe o CNOJ:");
+		String cnpj = JOptionPane.showInputDialog(null, "Informe o CNOJ:");
 		String localidade = JOptionPane.showInputDialog(null, "Informe a localidade: \n\nobs.: Localidade é opcional");
 
 		if(verificaCodigoPessoa(listaClientes, codigo)) {
@@ -80,14 +84,6 @@ public class PessoaService {
 		return listaClientes;
 	}
 	
-	public static boolean verificaCodigoPessoa(List<Pessoa> listaClientes, String codigo) {
-		return listaClientes.stream().anyMatch(entidade -> entidade.getCodigo().equals(codigo));
-	}
-	
-	public static boolean verificaSexoPessoa(String sexo) {
-		return sexo.equalsIgnoreCase("M") || sexo.equalsIgnoreCase("F");
-	}
-	
 	public static boolean verificaCpf(String cpf) {
 		return cpf.length() == 11;
 	}
@@ -96,7 +92,8 @@ public class PessoaService {
 		return cpf.length() == 14;
 	}
 	
-	public static void listarClientes(List<PessoaFisica> listaClientes, List<PessoaJurisdica> listaJurisdica) {
+	@Override
+	public void listarClientes(List<PessoaFisica> listaClientes, List<PessoaJurisdica> listaJurisdica) {
 		StringBuilder exibicao = new StringBuilder();
 
 		String tipoListar = JOptionPane.showInputDialog(null,
@@ -160,7 +157,8 @@ public class PessoaService {
 		return exibicao.toString();
 	}
 	
-	public static void removerClientePorCodigo(List<PessoaFisica> listaClientes) {
+	@Override
+	public void removerClientePorCodigo(List<PessoaFisica> listaClientes) {
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código do cliente a ser removido:");
 		
 		Optional<PessoaFisica> pessoa = buscarPessoaFisicaPorCodigo(codigo, listaClientes);

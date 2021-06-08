@@ -4,6 +4,8 @@ import domain.Locacao;
 import domain.PessoaFisica;
 import domain.PessoaJurisdica;
 import domain.Veiculo;
+import interfaces.LocacaoInterface;
+import interfaces.VeiculoInterface;
 import util.Scroll;
 
 import javax.swing.JOptionPane;
@@ -12,9 +14,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class LocacaoService {
+public class LocacaoService implements LocacaoInterface {
 
-	public static void listarLocacaoComFiltro(List<Locacao> locacoes){
+	@Override
+	public void listarLocacaoComFiltro(List<Locacao> locacoes){
 		String filtroPessoa = JOptionPane.showInputDialog(null, "Informe o filtro de pessoa:");
 		String filtroVeiculo = JOptionPane.showInputDialog(null, "Informe o filtro do veiculo:");
 
@@ -47,7 +50,8 @@ public class LocacaoService {
 		new Scroll(exibicao.toString(), "LISTAGEM DE LOCAÇÕES DETALHADA:");
 	}
 	
-	public static void listarLocacaoSemFiltro(List<Locacao> locacoes){
+	@Override
+	public void listarLocacaoSemFiltro(List<Locacao> locacoes){
 		
 		StringBuilder exibicao = new StringBuilder();
 
@@ -66,7 +70,8 @@ public class LocacaoService {
 		new Scroll(exibicao.toString(), "LISTAGEM DE LOCAÇÕES:");
 	}
 	
-	public static List cadastrarLocacao(List<Locacao> locacoes, List<PessoaFisica> pessoas, List<Veiculo> veiculos){
+	@Override
+	public List cadastrarLocacao(List<Locacao> locacoes, List<PessoaFisica> pessoas, List<Veiculo> veiculos){
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código de registro:");
 		String codigoPessoa = JOptionPane.showInputDialog(null, "Informe o codigo da Pessoa:");
 		String placaVeiculo =  JOptionPane.showInputDialog(null, "Informe a placa do Veículo:");
@@ -104,7 +109,8 @@ public class LocacaoService {
 		return locacoes;
 	}
 
-	public static List cadastrarLocacaoPessoaJurisdica(List<Locacao> locacoes, List<PessoaJurisdica> pessoas, List<Veiculo> veiculos){
+	@Override
+	public  List cadastrarLocacaoPessoaJurisdica(List<Locacao> locacoes, List<PessoaJurisdica> pessoas, List<Veiculo> veiculos){
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código de registro:");
 		String codigoPessoa = JOptionPane.showInputDialog(null, "Informe o codigo da Pessoa:");
 		String placaVeiculo =  JOptionPane.showInputDialog(null, "Informe a placa do Veículo:");
@@ -154,7 +160,8 @@ public class LocacaoService {
 		return listaClientes.stream().filter(entidade -> entidade.getCodigo().equals(codigo)).findFirst();
 	}
 	
-	public static void deletarLocacao(List<Locacao> locacoes){
+	@Override
+	public void deletarLocacao(List<Locacao> locacoes){
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código da locação a ser removido:");
 
 		locacoes.removeIf(item -> item.getCodigo().equals(codigo));

@@ -6,11 +6,13 @@ import java.util.Optional;
 import javax.swing.JOptionPane;
 
 import domain.Veiculo;
+import interfaces.VeiculoInterface;
 import util.Scroll;
 
-public class VeiculoService {
+public class VeiculoService implements VeiculoInterface {
 
-	public static List cadastrarVeiculo(List listaVeiculos) {
+	@Override
+	public List cadastrarVeiculo(List listaVeiculos) {
 		String placa = JOptionPane.showInputDialog(null, "Informe o placa do veículo:");
 		String marca = JOptionPane.showInputDialog(null, "Informe a marca:");
 		String nomeVeiculo =  JOptionPane.showInputDialog(null, "Informe o nome do veículo:");
@@ -43,7 +45,8 @@ public class VeiculoService {
 		return placa.length() == 7 ? true : false;
 	}
 
-	public static void listarVeiculos(List<Veiculo> listaVeiculos) {
+	@Override
+	public void listarVeiculos(List<Veiculo> listaVeiculos) {
 		StringBuilder exibicao = new StringBuilder();
 
 		if(listaVeiculos.isEmpty()) {
@@ -59,11 +62,11 @@ public class VeiculoService {
 		Scroll scroll = new Scroll(exibicao.toString(), "LISTAGEM DE VEÍCULOS:");
 	}
 
-	public static void removerVeiculoPorPlaca(List<Veiculo> listaVeiculos) {
+	@Override
+	public void removerVeiculoPorPlaca(List<Veiculo> listaVeiculos) {
 		String placa = JOptionPane.showInputDialog(null, "Informe a placa do veículo a ser removido:");
 
 		Optional<Veiculo> veiculo = listaVeiculos.stream().filter(entidade -> entidade.getPlaca().equals(placa)).findFirst();
-
 
 		if(veiculo.isPresent()) {
 			int indexVeiculo = listaVeiculos.indexOf(veiculo.get());

@@ -158,15 +158,13 @@ public class PessoaService implements PessoaInterface {
 		Optional<PessoaJurisdica> pessoaJurisdica = buscarPessoaJurisdicaPorCodigo(codigo, listaJurisdica);
 
 		if(pessoa.isPresent()) {
-			listaClientes.remove(pessoa.get());
+			int indexPessoa = listaClientes.indexOf(pessoa.get());
+			listaClientes.remove(indexPessoa);
 			
 			JOptionPane.showMessageDialog(null , "Cliente removido com sucesso!");
-		} else {
-			JOptionPane.showMessageDialog(null , "Registro não encontrado!");
-		}
-
-		if(pessoaJurisdica.isPresent()) {
-			listaClientes.remove(pessoaJurisdica.get());
+		} else if (pessoaJurisdica.isPresent()){
+			int indexPessoa = listaJurisdica.indexOf(pessoaJurisdica.get());
+			listaJurisdica.remove(indexPessoa);
 
 			JOptionPane.showMessageDialog(null , "Cliente removido com sucesso!");
 		} else {

@@ -19,7 +19,7 @@ public class LocacaoService implements LocacaoInterface {
 	@Override
 	public void listarLocacaoComFiltro(List<Locacao> locacoes){
 		String filtroPessoa = JOptionPane.showInputDialog(null, "Informe o filtro de pessoa:");
-		String filtroVeiculo = JOptionPane.showInputDialog(null, "Informe o filtro do veiculo:");
+		String filtroVeiculo = JOptionPane.showInputDialog(null, "Informe o filtro de veículo:");
 
 		List<Locacao> locacoesFlitradas;
 
@@ -73,7 +73,7 @@ public class LocacaoService implements LocacaoInterface {
 	@Override
 	public List cadastrarLocacao(List<Locacao> locacoes, List<PessoaFisica> pessoas, List<Veiculo> veiculos){
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código de registro:");
-		String codigoPessoa = JOptionPane.showInputDialog(null, "Informe o codigo da Pessoa:");
+		String codigoPessoa = JOptionPane.showInputDialog(null, "Informe o código da Pessoa:");
 		String placaVeiculo =  JOptionPane.showInputDialog(null, "Informe a placa do Veículo:");
 		Long valor = Long.parseLong(JOptionPane.showInputDialog(null, "Informe o valor da Locação:"));
 

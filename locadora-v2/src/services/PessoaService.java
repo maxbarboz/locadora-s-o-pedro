@@ -187,4 +187,8 @@ public class PessoaService implements PessoaInterface {
 	public static Optional<PessoaJurisdica> buscarPessoaJurisdicaPorCodigo(String codigo, List<PessoaJurisdica> listaClientes){
 		return listaClientes.stream().filter(entidade -> entidade.getCodigo().equals(codigo)).findFirst();
 	}
+	
+	public static boolean verificaSexoPessoa(String sexo) {
+		return sexo.equalsIgnoreCase("M") || sexo.equalsIgnoreCase("F");
+	}
 }

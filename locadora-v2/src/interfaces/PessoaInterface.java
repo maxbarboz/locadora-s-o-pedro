@@ -18,12 +18,11 @@ public interface PessoaInterface {
 	
 	void removerClientePorCodigo(List<PessoaFisica> listaClientes, List<PessoaJurisdica> listJurisdica);
 	
+	/**
+     * Método default que verifica o código de pessoa tanto para 
+     * pessoa jurídica quanto pessoa física
+     */
 	default boolean verificaCodigoPessoa(List<Pessoa> listaClientes, String codigo) {
 		return listaClientes.stream().anyMatch(entidade -> entidade.getCodigo().equals(codigo));
-	}
-	
-	default boolean verificaSexoPessoa(String sexo) {
-		return sexo.equalsIgnoreCase("M") || sexo.equalsIgnoreCase("F");
-	}
-	
+	}	
 }

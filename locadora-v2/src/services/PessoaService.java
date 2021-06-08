@@ -1,12 +1,11 @@
 package services;
 
-import domain.Pessoa;
 import domain.PessoaFisica;
 import domain.PessoaJurisdica;
 import interfaces.PessoaInterface;
 import util.Scroll;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -158,27 +157,34 @@ public class PessoaService implements PessoaInterface {
 	}
 	
 	@Override
-	public void removerClientePorCodigo(List<PessoaFisica> listaClientes) {
+	public void removerClientePorCodigo(List<PessoaFisica> listaClientes, List<PessoaJurisdica> listaJurisdica) {
 		String codigo = JOptionPane.showInputDialog(null, "Informe o código do cliente a ser removido:");
 		
 		Optional<PessoaFisica> pessoa = buscarPessoaFisicaPorCodigo(codigo, listaClientes);
+		Optional<PessoaJurisdica> pessoaJurisdica = buscarPessoaJurisdicaPorCodigo(codigo, listaJurisdica);
 
 		if(pessoa.isPresent()) {
-			int indexPessoa = listaClientes.indexOf(pessoa.get());
-			
-			listaClientes.remove(indexPessoa);
+			listaClientes.remove(pessoa.get());
 			
 			JOptionPane.showMessageDialog(null , "Cliente removido com sucesso!");
 		} else {
 			JOptionPane.showMessageDialog(null , "Registro não encontrado!");
-		}	
+		}
+
+		if(pessoaJurisdica.isPresent()) {
+			listaClientes.remove(pessoaJurisdica.get());
+
+			JOptionPane.showMessageDialog(null , "Cliente removido com sucesso!");
+		} else {
+			JOptionPane.showMessageDialog(null , "Registro não encontrado!");
+		}
 	}
 	
 	public static Optional<PessoaFisica> buscarPessoaFisicaPorCodigo(String codigo, List<PessoaFisica> listaClientes){
 		return listaClientes.stream().filter(entidade -> entidade.getCodigo().equals(codigo)).findFirst();
 	}
 
-	public static Optional<Pessoa> buscarPessoaJurisdicaPorCodigo(String codigo, List<Pessoa> listaClientes){
+	public static Optional<PessoaJurisdica> buscarPessoaJurisdicaPorCodigo(String codigo, List<PessoaJurisdica> listaClientes){
 		return listaClientes.stream().filter(entidade -> entidade.getCodigo().equals(codigo)).findFirst();
 	}
 }
